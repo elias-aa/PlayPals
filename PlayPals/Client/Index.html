@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PlayPals</title>
     <style>
+        /*General Styling//////////////////////////////////////////////////////////////*/
         body, html {
             height: 100%;
             margin: 0;
@@ -19,6 +20,7 @@
             text-align: center;
             color: white;
         }
+        /*Text Content//////////////////////////////////////////////////////////////*/
         .title {
             font-size: 6em;
         }
@@ -35,6 +37,11 @@
         .subtitle .get-gaming {
             color: #0ADD08;
         }
+        .powered-by {
+            margin-top: 2em;
+            font-size: 1.2em;
+        }
+        /*Button//////////////////////////////////////////////////////////////*/
         .button-container {
             margin-top: 2em;
         }
@@ -48,26 +55,22 @@
             font-size: 1.75em;
             margin-top: 2em;
         }
-        .powered-by {
-            margin-top: 2em;
-            font-size: 1.2em;
-        }
     </style>
 </head>
-<body>
-    <div class="center-white">
-        <div class="title">
-            <span class="play">Play</span><span class="pals">Pals</span>
+    <body>
+        <div class="center-white">
+            <div class="title">
+                <span class="play">Play</span><span class="pals">Pals</span>
+            </div>
+            <p class="subtitle">
+                Meet New People. <span class="get-gaming">Get Gaming.</span>
+            </p>
+            <div class="button-container">
+                <a href="WelcomePage.html">
+                    <button>Get Started</button>
+                </a>
+            </div>
+            <div class="powered-by">Powered By PlayPals</div>
         </div>
-        <p class="subtitle">
-            Meet New People. <span class="get-gaming">Get Gaming.</span>
-        </p>
-        <div class="button-container">
-            <a href="WelcomePage.html">
-                <button>Get Started</button>
-            </a>
-        </div>
-        <div class="powered-by">Powered By PlayPals</div>
-    </div>
-</body>
+    </body>
 </html>
