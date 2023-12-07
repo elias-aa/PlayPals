@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+        .grey-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1a1a;
+            z-index: -3; /* Place it behind other elements */
+        }
+        .background-square-right {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg); /* Rotate to make it a diamond */
+            width: 1250px; /* Adjust the width as needed */
+            height: 1250px; /* Adjust the height as needed */
+            background: linear-gradient(45deg, rgba(15, 199, 15, 0) 50%, #0FC70F 100%); /* Gradient for opacity starting from the middle */
+            z-index: -2; /* Place it behind other elements */
+            border-radius: 100px; /* Adjust the border-radius as needed */
+        }
+        .background-square-left {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg); /* Rotate to make it a diamond */
+            width: 1250px; /* Adjust the width as needed */
+            height: 1250px; /* Adjust the height as needed */
+            background: linear-gradient(220deg, rgba(15, 199, 15, 0) 50%, #0FC70F 100%); /* Gradient for opacity starting from the middle */
+            z-index: -2; /* Place it behind other elements */
+            border-radius: 100px; /* Adjust the border-radius as needed */
+        }
+
+        .grey-diamond {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg); /* Rotate to make it a diamond */
+            width: 600px; /* Adjust the width as needed */
+            height: 600px; /* Adjust the height as needed */
+            background: #1a1a1a;
+            z-index: -1; /* Place it behind other elements */
+            border-radius: 100px; /* Adjust the border-radius as needed */
+        }
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .title {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+            color: #0FC70F;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 2em;
+        }
+        .rules {
+            text-align: left;
+            font-size: 1em;
+            margin-bottom: 2em;
+        }
+        .rule-title {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .rule-description {
+            font-size: 0.9em;
+        }
+        .button {
+            background-color: #0FC70F;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-top: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="grey-background"></div>
+    <div class="background-square-left"></div>
+    <div class="background-square-right"></div>
+    <div class="grey-diamond"></div>
+    <div class="container">
+        <div class="title">Welcome</div>
+        <div class="subtitle">Please Follow these club rules when using this app.</div>
+        <div class="illustration"></div>
+        <div class="rules">
+            <div class="rule">
+                <div class="rule-title">Be yourself.</div>
+                <div class="rule-description">Upload only your own photos, age and bio that's yours.</div>
+            </div>
+            <div class="rule">
+                <div class="rule-title">Be safe.</div>
+                <div class="rule-description">Don't give out personal info too quickly. Gauge, analyze and play safely.</div>
+            </div>
+            <div class="rule">
+                <div class="rule-title">Be cool.</div>
+                <div class="rule-description">Stay chill and treat others with respect and dignity.</div>
+            </div>
+            <div class="rule">
+                <div class="rule-title">Be active.</div>
+                <div class="rule-description">Report others' rude or bad behaviour actively so we can keep it safe.</div>
+            </div>
+        </div>
+        <div class="button-container">
+            <a href="PlayPals.html">
+                <button class="button">I Understand</button>
+            </a>
+        </div>
+        <div class="button-container">
+            <button class="button" onclick="goBack()">Go Back</button>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

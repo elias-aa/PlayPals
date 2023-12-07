@@ -1,13 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayPals</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #1a1a1a;
+        }
+        .center-white {
+            text-align: center;
+            color: white;
+        }
+        .title {
+            font-size: 6em;
+        }
+        .title .play {
+            color: white;
+        }
+        .title .pals {
+            color: #0ADD08;
+        }
+        .subtitle {
+            margin-top: 1em;
+            font-size: 2.5em;
+        }
+        .subtitle .get-gaming {
+            color: #0ADD08;
+        }
+        .button-container {
+            margin-top: 2em;
+        }
+        button {
+            background-color: #0FC70F;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 1.75em;
+            margin-top: 2em;
+        }
+        .powered-by {
+            margin-top: 2em;
+            font-size: 1.2em;
+        }
+    </style>
 </head>
 <body>
-
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
-
+    <div class="center-white">
+        <div class="title">
+            <span class="play">Play</span><span class="pals">Pals</span>
+        </div>
+        <p class="subtitle">
+            Meet New People. <span class="get-gaming">Get Gaming.</span>
+        </p>
+        <div class="button-container">
+            <a href="WelcomePage.html">
+                <button>Get Started</button>
+            </a>
+        </div>
+        <div class="powered-by">Powered By PlayPals</div>
+    </div>
 </body>
 </html>
