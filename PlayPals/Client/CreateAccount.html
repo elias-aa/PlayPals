@@ -150,28 +150,19 @@
         <div class="circle"></div>
     </div>
     <h2 class="title">Create your account</h2>
-    <form onsubmit="createAccount(); return false;">
-        <input type="text" id="username" name="username" placeholder="Enter your email" required>
+    <form id="createAccountForm">
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
         <br>
         <input type="password" id="password" name="password" placeholder="Choose a password" required>
         <br>
         <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
         <br>
-        <button class="submitButton" type="submit">Create Account</button>
+        <button class="submitButton" type="submit" id="create-acc-btn">Create Account</button>
     </form>
     <p style="color: white;">Already have an account? <a href="SignIn.html" style="color: #0FC70F;">Sign In</a></p>
     <p class="terms">Terms of Use and Privacy</p>
   </div>
 
-  <script>
-    function goBack() {
-      window.history.back();
-    }
-
-    function createAccount() {
-      // If account creation successful, go to Home.html
-      window.location.href = 'Home.html';
-    }
-  </script>
+    <script> src="javascript/script.js"</script>
 </body>
 </html>

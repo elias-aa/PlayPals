@@ -9,11 +9,11 @@ namespace PlayPals.Services
 {
     public class ApplicationDbContext : DbContext
     {
+        public DbSet<User> Users{get; set;}
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Filename=applicationDb.db");
         }
 
-        public DbSet<User> Users{get; set;}
     }
 }

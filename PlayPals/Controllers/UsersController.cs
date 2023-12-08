@@ -16,24 +16,29 @@ namespace PlayPals.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private ApplicationDbContext _db = new ApplicationDbContext();
 
-        public UsersController(ApplicationDbContext context)
+        // GET: api/Users
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            _context = context;
+            return await _db.Users.ToListAsync();
         }
-
         // POST: api/Users/register
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserDto userDto)
         {
-            if (_context.Users.Any(u => u.Email == userDto.Email))
+            // Check if email is already in use
+            if (await _db.Users.AnyAsync(u => u.Email == userDto.Email))
             {
-                return BadRequest("Username already exists.");
+                return BadRequest("Email is already in use");
             }
 
-            CreatePasswordHash(userDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            // Create password hash and salt
+            byte[] passwordHash, passwordSalt;
+            new User().CreatePasswordHash(userDto.Password, out passwordHash, out passwordSalt);
 
+            // Create new user
             User user = new User
             {
                 Email = userDto.Email,
@@ -41,56 +46,31 @@ namespace PlayPals.Controllers
                 PasswordSalt = passwordSalt
             };
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            // Add user to database
+            await _db.Users.AddAsync(user);
+            await _db.SaveChangesAsync();
 
-            return StatusCode(201); // Created
+            return Ok(user);
         }
 
         // POST: api/Users/login
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(UserDto userDto)
+        public async Task<ActionResult<User>> Login(UserDto userDto)
         {
-            if (string.IsNullOrWhiteSpace(userDto.Email) || string.IsNullOrWhiteSpace(userDto.Password))
-            {
-                return BadRequest("Email and password must be provided.");
-            }
-
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == userDto.Email);
-
+            // Check if email exists
+            User user = await _db.Users.FirstOrDefaultAsync(u => u.Email == userDto.Email);
             if (user == null)
             {
-                return NotFound("User not found.");
+                return BadRequest("Email does not exist");
             }
 
-            if (!VerifyPasswordHash(userDto.Password, user.PasswordHash, user.PasswordSalt))
+            // Check if password is correct
+            if (!new User().VerifyPasswordHash(userDto.Password, user.PasswordHash, user.PasswordSalt))
             {
-                return BadRequest("Password is incorrect.");
+                return BadRequest("Password is incorrect");
             }
 
-            // Here you would generate a JWT token or another form of authentication/authorization token
-            string token = "GeneratedTokenWouldGoHere";
-
-            return Ok(token);
-        }
-
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using (var hmac = new HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-            }
-        }
-
-        private bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
-        {
-            using (var hmac = new HMACSHA512(storedSalt))
-            {
-                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return computedHash.SequenceEqual(storedHash);
-            }
+            return Ok(user);
         }
     }
 }
