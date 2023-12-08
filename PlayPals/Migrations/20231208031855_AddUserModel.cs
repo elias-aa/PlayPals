@@ -16,7 +16,7 @@ namespace PlayPals.Migrations
                 {
                     UserId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
                     PasswordHash = table.Column<byte[]>(type: "BLOB", nullable: false),
                     PasswordSalt = table.Column<byte[]>(type: "BLOB", nullable: false)
                 },

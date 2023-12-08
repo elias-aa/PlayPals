@@ -27,7 +27,7 @@ namespace PlayPals.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserDto userDto)
         {
-            if (_context.Users.Any(u => u.Username == userDto.Username))
+            if (_context.Users.Any(u => u.Email == userDto.Email))
             {
                 return BadRequest("Username already exists.");
             }
@@ -36,7 +36,7 @@ namespace PlayPals.Controllers
 
             User user = new User
             {
-                Username = userDto.Username,
+                Email = userDto.Email,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt
             };
@@ -51,13 +51,13 @@ namespace PlayPals.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserDto userDto)
         {
-            if (string.IsNullOrWhiteSpace(userDto.Username) || string.IsNullOrWhiteSpace(userDto.Password))
+            if (string.IsNullOrWhiteSpace(userDto.Email) || string.IsNullOrWhiteSpace(userDto.Password))
             {
-                return BadRequest("Username and password must be provided.");
+                return BadRequest("Email and password must be provided.");
             }
 
             var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Username == userDto.Username);
+                .FirstOrDefaultAsync(u => u.Email == userDto.Email);
 
             if (user == null)
             {

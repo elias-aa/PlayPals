@@ -10,7 +10,7 @@ using PlayPals.Services;
 namespace PlayPals.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231208011929_AddUserModel")]
+    [Migration("20231208031855_AddUserModel")]
     partial class AddUserModel
     {
         /// <inheritdoc />
@@ -25,6 +25,10 @@ namespace PlayPals.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("BLOB");
@@ -32,10 +36,6 @@ namespace PlayPals.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .IsRequired()
                         .HasColumnType("BLOB");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId");
 
