@@ -115,38 +115,48 @@ body {
 .bottom-bar {
     background: #555;
     position: absolute;
-    bottom: 36px; 
+    bottom: 20px; 
+    width: 80%; 
     padding: 10px;
     border-radius: 30px; 
     display: flex;
-    justify-content: space-around;
-}
-.bottom-bar div {
-    background: #666;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
-.online-indicator {
-    height: 15px;
-    width: 15px;
-    background-color: #0f0;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 76px; 
-    left: 50%;
-    transform: translateX(-50%);
-    border: 2px solid #444;
-}
-.menu-dots {
-    display: block;
-    width: 5px;
-    height: 5px;
-    background-color: white;
-    border-radius: 50%;
-    margin: 4px auto;
+    justify-content: space-evenly; 
+    align-items: center;
+    left: 10%;
+    right: 10%; 
 }
 
+
+.profile-photo {
+    width: 150px; 
+    height: 150px;
+    border-radius: 50%; 
+    overflow: hidden; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin: 20px auto; 
+}
+
+
+.profile-photo img {
+    width: 100%;
+    height: auto; 
+}
+
+.menu-dots-container {
+    display: flex;
+    justify-content: space-around; 
+    width: 100%; 
+}
+
+.menu-dot {
+    width: 10px; 
+    height: 10px; 
+    background-color: white;
+    border-radius: 50%; 
+    margin: 0 5px; 
+}
 </style>
 </head>
 <body>
@@ -166,6 +176,9 @@ body {
         <img src="https://via.placeholder.com/100" alt="Profile Photo">
     </div>
     <div class="profile-info">
+        <div class="profile-photo">
+            <!-- <img src="path-to-your-image.jpg" alt="Profile Photo"> -->
+        </div>        
         <div class="profile-name">Jason Zhu, 25</div>
         <div class="profile-bio">Graphic Designer by day, dog trainer by night</div>
         <h2>Games I play</h2>
@@ -177,9 +190,11 @@ body {
         </div>
     </div>
     <div class="bottom-bar">
-        <div></div>
-        <div></div>
-        <div></div>
+        <div class="menu-dots-container">
+            <div class="menu-dot"></div>
+            <div class="menu-dot"></div>
+            <div class="menu-dot"></div>
+        </div>
     </div>
     <div class="online-indicator"></div>
     <div class="edit">Edit</div>
