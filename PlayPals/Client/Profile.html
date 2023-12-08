@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile Page</title>
+<style>
+* {
+    box-sizing: border-box;
+}
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+.profile-container {
+    width: calc(100% - 40px);
+    height: calc(100vh - 40px); 
+    background-color: #444;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; 
+    position: relative;
+    margin: 20px; 
+    padding: 20px; 
+    border-radius: 20px; 
+}
+.menu, .edit {
+    color: #aaa;
+    position: absolute;
+    top: 36px; 
+}
+.menu {
+    left: 36px;
+    font-size: 30px;
+}
+.edit {
+    right: 36px;
+    font-size: 16px;
+}
+.profile-header {
+    font-size: 32px;
+    color: #4CAF50;
+    margin: 0;
+    align-self: center; 
+}
+.profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; 
+    overflow: hidden;
+    margin: 16px 0;
+}
+.profile-info {
+    text-align: center;
+    width: 100%; 
+}
+.profile-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 8px 0;
+}
+.profile-bio {
+    font-size: 16px;
+    color: #aaa;
+    margin-bottom: 16px;
+}
+.stats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; 
+    position: absolute;
+    padding: 100px; 
+}
+.stats div {
+    padding: 8px 16px; 
+    border-radius: 10px;
+    background: #555;
+}
+
+.menu {
+    left: 36px; 
+    top: 36px; 
+    font-size: 30px; 
+}
+
+.edit {
+    right: 36px; 
+    top: 36px; 
+    font-size: 16px; 
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    width: 100%;
+    padding: 0; 
+}
+.game-icon {
+    background-color: #555;
+    border-radius: 10px;
+    height: 80px;
+}
+.bottom-bar {
+    background: #555;
+    position: absolute;
+    bottom: 36px; 
+    padding: 10px;
+    border-radius: 30px; 
+    display: flex;
+    justify-content: space-around;
+}
+.bottom-bar div {
+    background: #666;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.online-indicator {
+    height: 15px;
+    width: 15px;
+    background-color: #0f0;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 76px; 
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px solid #444;
+}
+.menu-dots {
+    display: block;
+    width: 5px;
+    height: 5px;
+    background-color: white;
+    border-radius: 50%;
+    margin: 4px auto;
+}
+
+</style>
+</head>
+<body>
+
+<div class="profile-container">
+    <div class="menu">
+        <div class="menu-dots"></div>
+        <div class="menu-dots"></div>
+        <div class="menu-dots"></div>
+    </div>
+    <div class="stats">
+        <div>5 Posts</div>
+        <div>12 Friends</div>
+    </div>
+    <div class="profile-header">Your Profile</div>
+    <div class="profile-photo">
+        <img src="https://via.placeholder.com/100" alt="Profile Photo">
+    </div>
+    <div class="profile-info">
+        <div class="profile-name">Jason Zhu, 25</div>
+        <div class="profile-bio">Graphic Designer by day, dog trainer by night</div>
+        <h2>Games I play</h2>
+        <div class="games-grid">
+            <div class="game-icon"></div>
+            <div class="game-icon"></div>
+            <div class="game-icon"></div>
+            <div class="game-icon"></div>
+        </div>
+    </div>
+    <div class="bottom-bar">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="online-indicator"></div>
+    <div class="edit">Edit</div>
+
+</div>
+
+</body>
+</html>
