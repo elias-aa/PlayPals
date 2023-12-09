@@ -97,7 +97,6 @@ body {
 }
 
 .edit {
-    .edit {
     position: absolute; 
     right: 20px; 
     top: 20px; 
@@ -109,7 +108,8 @@ body {
     cursor: pointer; 
 }
 
-}
+
+
 
 
 .games-grid {
@@ -170,7 +170,7 @@ body {
 <body>
 
 <div class="profile-container">
-    <button class="edit">Edit</button>
+    <a href="#" id="editLink" class="edit" style="color: white;">Edit</a>
     <div class="stats">
         <div>5 Posts</div>
         <div>12 Friends</div>
@@ -204,6 +204,19 @@ body {
     
 
 </div>
+
+<script>
+    // Get the "Edit" link by its id
+    var editLink = document.getElementById("editLink");
+
+    editLink.addEventListener("click", function(event) {
+    
+    event.preventDefault();
+    // Navigate to the "EditProfile.html" page
+    window.location.href = "EditProfile.html";
+});
+
+</script>
 
 </body>
 </html>
