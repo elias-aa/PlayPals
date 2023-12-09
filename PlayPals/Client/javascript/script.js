@@ -40,6 +40,7 @@ document.getElementById('createAccountForm').addEventListener('submit', async fu
 
         const data = await response.json();
         console.log('Success:', data);
+        window.location.href = 'Home.html';
     } catch (error) {
         console.error('Error:', error);
     }
