@@ -166,8 +166,10 @@ body {
     margin: 0 5px; 
 }
 </style>
+
 </head>
 <body>
+  
 
 <div class="profile-container">
     <a href="#" id="editLink" class="edit" style="color: white;">Edit</a>
@@ -201,22 +203,19 @@ body {
         </div>
     </div>
     <div class="online-indicator"></div>
-    
-
 </div>
-
 <script>
-    // Get the "Edit" link by its id
-    var editLink = document.getElementById("editLink");
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the "Edit" link by its id
+        var editLink = document.getElementById("editLink");
 
-    editLink.addEventListener("click", function(event) {
-    
-    event.preventDefault();
-    // Navigate to the "EditProfile.html" page
-    window.location.href = "EditProfile.html";
-});
-
+        // Add a click event listener
+        editLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            console.log("Current URL:", window.location.href);
+            window.location.href = "EditProfile.html";
+        });
+    });
 </script>
-
 </body>
 </html>
