@@ -16,6 +16,10 @@ namespace PlayPals.Models
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
 
+        public string ProfilePic { get; set; } // Add this property
+
+        public string Bio { get; set; } // Add this property
+
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512())

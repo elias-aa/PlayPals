@@ -8,16 +8,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PlayPals.DTOs;
 using PlayPals.Models;
+using PlayPals.Repositories;
 using PlayPals.Services;
 
 namespace PlayPals.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class UsersController : ControllerBase
     {
-        private ApplicationDbContext _db = new ApplicationDbContext();
 
+    private readonly ApplicationDbContext _db;
+    private readonly IUserRepository _userRepository;
+
+    public UsersController(ApplicationDbContext db, IUserRepository userRepository)
+    {
+        _db = db ?? throw new ArgumentNullException(nameof(db));
+        _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+    }
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
@@ -72,5 +81,42 @@ namespace PlayPals.Controllers
 
             return Ok(user);
         }
+
+   // PATCH: api/Users/updateProfile
+    [HttpPatch("updateProfile")]
+    public async Task<IActionResult> UpdateUserProfile([FromBody] UpdateProfileDto updateProfileDto)
+    {
+        var userId = GetUserIdFromToken();
+        var user = await _userRepository.GetUserByIdAsync(userId);
+
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+
+        if (!string.IsNullOrEmpty(updateProfileDto.NewProfilePic))
+        {
+            user.ProfilePic = updateProfileDto.NewProfilePic;
+        }
+
+        if (!string.IsNullOrEmpty(updateProfileDto.NewBio))
+        {
+            user.Bio = updateProfileDto.NewBio;
+        }
+
+        await _userRepository.UpdateUserAsync(user);
+
+        return Ok(new { message = "Profile updated successfully" });
     }
+
+
+    private Guid GetUserIdFromToken()
+    {
+        // Implement logic to extract user ID from the token
+        
+        return Guid.Empty; 
+    }
+}
+
+    
 }
