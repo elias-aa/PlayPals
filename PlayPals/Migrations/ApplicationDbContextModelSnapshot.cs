@@ -23,10 +23,6 @@ namespace PlayPals.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Bio")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -38,10 +34,6 @@ namespace PlayPals.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .IsRequired()
                         .HasColumnType("BLOB");
-
-                    b.Property<string>("ProfilePic")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId");
 

@@ -77,53 +77,23 @@ body {
 </head>
 <body>
 
-    <div class="profile-container">
-        <form id="editProfileForm" class="edit-form">
-            <label for="newProfilePic">Upload New Profile Picture:</label>
-            <input type="file" id="newProfilePic" name="newProfilePic">
-    
-            <label for="newBio">Change Bio:</label>
-            <textarea id="newBio" name="newBio" placeholder="Enter your new bio"></textarea>
-    
-            <button type="submit">Save Changes</button>
-        </form>
+<div class="profile-container">
+    <div class="edit-form">
+        <label for="newProfilePic">Upload New Profile Picture:</label>
+        <input type="file" id="newProfilePic" name="newProfilePic">
+
+        <label for="newBio">Change Bio:</label>
+        <textarea id="newBio" name="newBio" placeholder="Enter your new bio"></textarea>
+
+        <button type="submit">Save Changes</button>
+
     </div>
-    
-    <script>
-        document.getElementById('editProfileForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-    
-            try {
-                const newProfilePic = document.getElementById('newProfilePic').files[0];
-                const newBio = document.getElementById('newBio').value;
-    
-                const formData = new FormData();
-                formData.append('newProfilePic', newProfilePic);
-                formData.append('newBio', newBio);
-    
-                const response = await fetch('http://localhost:5054/api/Users/updateProfile', {
-                    method: 'PATCH',
-                    headers: {
-                        'Authorization': 'Bearer YOUR_ACCESS_TOKEN', // Include the user's access token
-                    },
-                    body: formData
-                });
-    
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`HTTP error! Status: ${response.status}, Text: ${errorText}`);
-                }
-    
-                const data = await response.json();
-                console.log('Profile updated successfully:', data);
-    
-                // Redirect to the Profile.html page after a successful update
-                window.location.href = 'Profile.html';
-            } catch (error) {
-                console.error('Error updating profile:', error);
-            }
-        });
-    </script>
+</div>
+<script>
+    function goBack() {
+    window.history.back();
+  }
+</script>
 
 </body>
 </html>
