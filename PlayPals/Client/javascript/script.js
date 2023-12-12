@@ -1,14 +1,54 @@
-fetch("http://localhost:5054/api/Users",{
+fetch("http://localhost:5054/api/Users", {
     method: "GET",
     headers: {
         "Content-Type": "application/json"
     }
 })
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.log(error));
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.log(error));
 
-document.getElementById('createAccountForm').addEventListener('submit', async function(event) {
+// Function to store the authentication token in localStorage
+function storeToken(token) {
+    localStorage.setItem('userToken', token);
+}
+
+// Function to retrieve the authentication token from localStorage
+function getAuthToken() {
+    return localStorage.getItem('userToken');
+}
+
+// Function to load user profile data
+async function loadUserProfile() {
+    const token = getAuthToken();
+    if (!token) {
+        console.error('Authentication token not found');
+        window.location.href = 'signin.html'; // Redirect to login page
+        return;
+    }
+
+    try {
+        
+        const response = await fetch(`http://localhost:5054/api/Users/profile`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json', 
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch user profile.');
+        }
+
+        const user = await response.json();
+       
+        console.log('User Profile:', user);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+document.getElementById('createAccountForm').addEventListener('submit', async function (event) {
     event.preventDefault();
 
     try {
@@ -31,8 +71,6 @@ document.getElementById('createAccountForm').addEventListener('submit', async fu
             body: JSON.stringify({ email: email, password: password })
         });
 
-        console.log('Response:', response);
-
         if (!response.ok) {
             const errorText = await response.text();
             throw new Error(`HTTP error! Status: ${response.status}, Text: ${errorText}`);
@@ -40,7 +78,15 @@ document.getElementById('createAccountForm').addEventListener('submit', async fu
 
         const data = await response.json();
         console.log('Success:', data);
-        window.location.href = 'Home.html';
+
+        // Redirect to the login page after successful registration
+        window.location.href = 'home.html';
+        // storeToken(token);
+
+     
+        
+
+        
     } catch (error) {
         console.error('Error:', error);
     }

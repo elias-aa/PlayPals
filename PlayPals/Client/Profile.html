@@ -44,10 +44,7 @@ body {
     left: 36px;
     font-size: 30px;
 }
-.edit {
-    right: 36px;
-    font-size: 16px;
-}
+
 .profile-header {
     font-size: 32px;
     font-weight: bold;
@@ -106,11 +103,8 @@ body {
     border: none; 
     border-radius: 4px; 
     cursor: pointer; 
+    z-index: 1000;
 }
-
-
-
-
 
 .games-grid {
     display: grid;
@@ -204,18 +198,62 @@ body {
     </div>
     <div class="online-indicator"></div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Get the "Edit" link by its id
-        var editLink = document.getElementById("editLink");
 
-        // Add a click event listener
-        editLink.addEventListener("click", function (event) {
-            event.preventDefault();
-            console.log("Current URL:", window.location.href);
-            window.location.href = "EditProfile.html";
-        });
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+ 
+
+    var editLink = document.getElementById("editLink");
+    editLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        window.location.href = "EditProfile.html";
     });
+});
+
+// function getAuthToken() {
+//     return localStorage.getItem('useroken');
+// }
+
+
+
+// async function loadUserProfile() {
+//     const token = getAuthToken();
+//     if (!token) {
+//         console.error('Authentication token not found');
+//         window.location.href = 'signin.html'; // Redirect to login page
+//         return;
+//     }
+
+//     try {
+//         // Assuming you have a GET endpoint to fetch user details
+//         const response = await fetch(`http://localhost:5054/api/Users/profile`, { 
+//             headers: {
+//                 'Authorization': `Bearer ${token}`
+//             }
+//         });
+
+//         if (!response.ok) {
+//             throw new Error('Failed to fetch user profile.');
+//         }
+
+//         const user = await response.json();
+//         updateProfileUI(user);
+//     } catch (error) {
+//         console.error('Error:', error);
+//     }
+// }
+
+function updateProfileUI(user) {
+    if (user.profilePicturePath) {
+        const profilePhotoElement = document.querySelector('.profile-photo img');
+        profilePhotoElement.src = user.profilePicturePath;
+    }
+
+    const profileBioElement = document.querySelector('.profile-bio');
+    profileBioElement.textContent = user.bio || 'No bio available.';
+}
+
+
 </script>
 </body>
 </html>
