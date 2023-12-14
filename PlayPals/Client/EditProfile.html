@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +9,15 @@
         * {
             box-sizing: border-box;
         }
-        body, html {
+
+        body,
+        html {
             height: 100%;
             margin: 0;
             padding: 0;
             background-color: #333;
         }
+
         body {
             font-family: 'Arial', sans-serif;
             color: white;
@@ -22,18 +26,20 @@
             align-items: center;
             padding: 0;
         }
+
         .profile-container {
-            width: calc(100% - 100px); 
-            min-height: calc(100vh - 40px); 
+            width: calc(100% - 100px);
+            min-height: calc(100vh - 40px);
             background-color: #444;
             display: flex;
-            flex-direction: column; 
+            flex-direction: column;
             align-items: center;
-            margin: 20px auto; 
-            padding: 20px; 
+            margin: 20px auto;
+            padding: 20px;
             border-radius: 20px;
             position: relative;
         }
+
         .edit-form {
             width: 100%;
             max-width: 600px;
@@ -43,18 +49,22 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
+
         .edit-form label {
             display: block;
             margin-bottom: 8px;
             color: #aaa;
         }
-        .edit-form input, .edit-form textarea {
+
+        .edit-form input,
+        .edit-form textarea {
             width: calc(100% - 16px);
             padding: 8px;
             margin-bottom: 16px;
             border: 1px solid #444;
             border-radius: 4px;
         }
+
         .edit-form button {
             width: 100%;
             padding: 8px 16px;
@@ -66,44 +76,45 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="profile-container">
         <form class="edit-form" onsubmit="handleSubmit(); return false;">
             <label for="newProfilePic">Upload New Profile Picture:</label>
             <input type="file" id="newProfilePic" name="newProfilePic">
-    
+
             <label for="newBio">Change Bio:</label>
             <textarea id="newBio" name="newBio" placeholder="Enter your new bio"></textarea>
-    
+
             <button type="submit">Save Changes</button>
         </form>
     </div>
-    
+
     <script>
         async function uploadProfilePicture() {
             const input = document.getElementById('newProfilePic');
             if (!input.files[0]) return;
-    
+
             let formData = new FormData();
             formData.append('file', input.files[0]);
-    
+
             const token = localStorage.getItem('userToken');
             if (!token) {
                 console.error('Authentication token not found');
                 // Redirect to login page or show an error message
                 return;
             }
-    
+
             try {
-                const response = await fetch(`http://localhost:5054/api/Users/uploadProfilePicture`, {
+                const response = await fetch(`http://localhost:5054/api/UserProfile/uploadProfilePicture`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`
                     },
                     body: formData
                 });
-    
+
                 if (!response.ok) {
                     throw new Error('Failed to upload profile picture');
                 }
@@ -111,19 +122,19 @@
                 console.error('Error:', error);
             }
         }
-    
+
         async function updateBio() {
             const bio = document.getElementById('newBio').value;
             const token = localStorage.getItem('userToken');
             if (!token) {
-    console.error('Authentication token not found');
-    window.location.href = 'SignIn.html'; // Redirect to the login page
-    return;
-}
+                console.error('Authentication token not found');
+                window.location.href = 'SignIn.html'; // Redirect to the login page
+                return;
+            }
 
-    
+
             try {
-                const response = await fetch(`http://localhost:5054/api/Users/updateBio`, {
+                const response = await fetch(`http://localhost:5054/api/UserProfile/updateBio`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -131,7 +142,7 @@
                     },
                     body: JSON.stringify({ newBio: bio })
                 });
-    
+
                 if (!response.ok) {
                     throw new Error('Failed to update bio');
                 }
@@ -141,40 +152,40 @@
         }
 
         async function fetchDataWithToken() {
-    const token = localStorage.getItem('userToken');
-    if (!token) {
-        console.error('No token found');
-        return;
-    }
-
-    try {
-        const response = await fetch("http://localhost:5054/api/Users", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}` 
+            const token = localStorage.getItem('userToken');
+            if (!token) {
+                console.error('No token found');
+                return;
             }
-        });
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch data');
+            try {
+                const response = await fetch("http://localhost:5054/api/Users", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+
+                const data = await response.json();
+                console.log(data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
 
-        const data = await response.json();
-        console.log(data);
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
 
-    
         async function handleSubmit() {
             await uploadProfilePicture();
             await updateBio();
             alert('Profile updated successfully.');
         }
     </script>
-    
-    </body>
-    </html>
 
+</body>
+
+</html>

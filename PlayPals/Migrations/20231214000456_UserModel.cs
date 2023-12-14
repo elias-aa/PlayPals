@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PlayPals.Migrations
 {
     /// <inheritdoc />
-    public partial class AddUserModel : Migration
+    public partial class UserModel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,9 @@ namespace PlayPals.Migrations
                     UserId = table.Column<Guid>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     PasswordHash = table.Column<byte[]>(type: "BLOB", nullable: false),
-                    PasswordSalt = table.Column<byte[]>(type: "BLOB", nullable: false)
+                    PasswordSalt = table.Column<byte[]>(type: "BLOB", nullable: false),
+                    ProfilePicturePath = table.Column<string>(type: "TEXT", nullable: true),
+                    Bio = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

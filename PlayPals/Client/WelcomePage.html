@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,8 @@
 
     <style>
         /*General Styling//////////////////////////////////////////////////////////////*/
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
@@ -18,9 +20,11 @@
             color: white;
             position: relative;
         }
+
         body {
             overflow: hidden;
         }
+
         .grey-background {
             position: fixed;
             top: 0;
@@ -30,6 +34,7 @@
             background: #1a1a1a;
             z-index: -3;
         }
+
         .container {
             text-align: center;
             max-width: 600px;
@@ -37,6 +42,7 @@
             position: relative;
             z-index: 1;
         }
+
         /*Background Shape//////////////////////////////////////////////////////////////*/
         .background-square-right {
             position: absolute;
@@ -49,6 +55,7 @@
             z-index: -2;
             border-radius: 100px;
         }
+
         .background-square-left {
             position: absolute;
             top: 50%;
@@ -60,6 +67,7 @@
             z-index: -2;
             border-radius: 100px;
         }
+
         .grey-diamond {
             position: absolute;
             top: 50%;
@@ -71,6 +79,7 @@
             z-index: -1;
             border-radius: 100px;
         }
+
         /*Button//////////////////////////////////////////////////////////////*/
         .button {
             background-color: #0FC70F;
@@ -82,38 +91,47 @@
             font-size: 1.2em;
             margin-top: 1em;
         }
+
         .button:hover {
             background-color: rgb(28, 112, 28);
         }
+
         .whiteButton {
             background-color: #4b4b4b;
             color: white;
         }
+
         .whiteButton:hover {
             background-color: #2f2f2f;
         }
+
         /*Title and Rules//////////////////////////////////////////////////////////////*/
         .title {
             font-size: 3em;
             margin-bottom: 0.5em;
             color: #0FC70F;
         }
+
         .subtitle {
             font-size: 1.2em;
             margin-bottom: 2em;
         }
+
         .rule-title {
             font-weight: bold;
             font-size: 2em;
         }
+
         .rule-description {
             margin-top: 0.8em;
             font-size: 0.9em;
             width: 100%;
         }
+
         .title .play {
             color: white;
         }
+
         .rules {
             text-align: left;
             margin-bottom: 2em;
@@ -121,57 +139,62 @@
             font-size: 1em;
             justify-content: space-between;
         }
+
         .rule {
             width: 200px;
         }
     </style>
 
 </head>
-    <body>
-        <div class="grey-background"></div>
-        <div class="background-square-left"></div>
-        <div class="background-square-right"></div>
-        <div class="grey-diamond"></div>
-        <div class="container">
-            <div class="title">Welcome to <span class="play">Play</span>Pals!</div>
-            <div class="subtitle">Please Follow these club rules when using this app.</div>
-            <div class="illustration"></div>
 
-            <div class="rules">
-                <div class="rule">
-                    <div class="rule-title">Be yourself.</div>
-                    <div class="rule-description">Upload only your own photos, age and bio that's yours.</div>
-                </div>
-                <div class="rule">
-                    <div class="rule-title">Be safe.</div>
-                    <div class="rule-description">Don't give out personal info too quickly. Gauge, analyze and play safely.</div>
-                </div>
-            </div>
-        
-            <div class="rules">
-                <div class="rule">
-                    <div class="rule-title">Be cool.</div>
-                    <div class="rule-description">Stay chill and treat others with respect and dignity.</div>
-                </div>
-                <div class="rule">
-                    <div class="rule-title">Be active.</div>
-                    <div class="rule-description">Report others' rude or bad behaviour actively so we can keep it safe.</div>
-                </div>
-            </div>
+<body>
+    <div class="grey-background"></div>
+    <div class="background-square-left"></div>
+    <div class="background-square-right"></div>
+    <div class="grey-diamond"></div>
+    <div class="container">
+        <div class="title">Welcome to <span class="play">Play</span>Pals!</div>
+        <div class="subtitle">Please Follow these club rules when using this app.</div>
+        <div class="illustration"></div>
 
-            <div class="button-container">
-                <a href="SignIn.html">
-                    <button class="button">I Understand</button>
-                </a>
+        <div class="rules">
+            <div class="rule">
+                <div class="rule-title">Be yourself.</div>
+                <div class="rule-description">Upload only your own photos, age and bio that's yours.</div>
             </div>
-            <div class="button-container">
-                <button class="button whiteButton" onclick="goBack()">Go Back</button>
+            <div class="rule">
+                <div class="rule-title">Be safe.</div>
+                <div class="rule-description">Don't give out personal info too quickly. Gauge, analyze and play safely.
+                </div>
             </div>
         </div>
-        <script>
-            function goBack() {
-                window.history.back();
-            }
-        </script>
-    </body>
+
+        <div class="rules">
+            <div class="rule">
+                <div class="rule-title">Be cool.</div>
+                <div class="rule-description">Stay chill and treat others with respect and dignity.</div>
+            </div>
+            <div class="rule">
+                <div class="rule-title">Be active.</div>
+                <div class="rule-description">Report others' rude or bad behaviour actively so we can keep it safe.
+                </div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <a href="SignIn.html">
+                <button class="button">I Understand</button>
+            </a>
+        </div>
+        <div class="button-container">
+            <button class="button whiteButton" onclick="goBack()">Go Back</button>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+
 </html>

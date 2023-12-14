@@ -1,259 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Profile Page</title>
-<style>
-* {
-    box-sizing: border-box;
-}
-body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #333;
-}
-body {
-    font-family: 'Arial', sans-serif;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-}
-.profile-container {
-    width: calc(100% - 100px); 
-    min-height: calc(100vh - 40px); 
-    background-color: #444;
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-    margin: 20px auto; 
-    padding: 20px; 
-    border-radius: 20px;
-    position: relative;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-}
-.menu, .edit {
-    color: #aaa;
-    position: absolute;
-    top: 36px; 
-}
-.menu {
-    left: 36px;
-    font-size: 30px;
-}
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #333;
+        }
 
-.profile-header {
-    font-size: 32px;
-    font-weight: bold;
-    color: #4CAF50;
-    margin: 0;
-    align-self: center; 
-}
-.profile-photo {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%; 
-    overflow: hidden;
-    margin: 16px 0;
-}
-.profile-info {
-    text-align: center;
-    width: 100%;
-    flex-grow: 1; 
-}
-.profile-name {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 8px 0;
-}
-.profile-bio {
-    font-size: 16px;
-    color: #aaa;
-    margin-bottom: 16px;
-}
-.stats {
-    display: flex;
-    justify-content: space-between;
-    width: 100%; 
-    position: absolute;
-    padding: 100px; 
-}
-.stats div {
-    padding: 8px 16px; 
-    border-radius: 10px;
-    background: #555;
-}
+        body {
+            font-family: 'Arial', sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+        }
 
-.menu {
-    left: 36px; 
-    top: 36px; 
-    font-size: 30px; 
-}
+        .profile-container {
+            width: calc(100% - 100px);
+            min-height: calc(100vh - 40px);
+            background-color: #444;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 20px;
+            position: relative;
 
-.edit {
-    position: absolute; 
-    right: 20px; 
-    top: 20px; 
-    padding: 8px 16px; 
-    background-color: #4CAF50; 
-    color: white;
-    border: none; 
-    border-radius: 4px; 
-    cursor: pointer; 
-    z-index: 1000;
-}
+        }
 
-.games-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    width: 100%;
-    padding: 0; 
-}
-.game-icon {
-    background-color: #555;
-    border-radius: 10px;
-    height: 80px;
-}
-.bottom-bar {
-    background: #555;
-    width: calc(100% - 40px); 
-    padding: 10px; 
-    border-radius: 30px; 
-    background: #555;
-    margin-top: auto; 
-    align-self: center; 
-}
+        .menu,
+        .edit {
+            color: #aaa;
+            position: absolute;
+            top: 36px;
+        }
+
+        .menu {
+            left: 36px;
+            font-size: 30px;
+        }
+
+        .profile-header {
+            font-size: 32px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 0;
+            align-self: center;
+        }
+
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .profile-info {
+            text-align: center;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+
+        .profile-bio {
+            font-size: 16px;
+            color: #aaa;
+            margin-bottom: 16px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            position: absolute;
+            padding: 100px;
+        }
+
+        .stats div {
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: #555;
+        }
+
+        .menu {
+            left: 36px;
+            top: 36px;
+            font-size: 30px;
+        }
+
+        .edit {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            width: 100%;
+            padding: 0;
+        }
+
+        .game-icon {
+            background-color: #555;
+            border-radius: 10px;
+            height: 80px;
+        }
+
+        .bottom-bar {
+            background: #555;
+            width: calc(100% - 40px);
+            padding: 10px;
+            border-radius: 30px;
+            background: #555;
+            margin-top: auto;
+            align-self: center;
+        }
 
 
-.profile-photo {
-    width: 150px; 
-    height: 150px;
-    border-radius: 50%; 
-    overflow: hidden; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    margin: 20px auto; 
-}
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+        }
 
 
-.profile-photo img {
-    width: 100%;
-    height: auto; 
-}
+        .profile-photo img {
+            width: 100%;
+            height: auto;
+        }
 
-.menu-dots-container {
-    display: flex;
-    justify-content: space-around; 
-    width: 100%; 
-}
+        .menu-dots-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
 
-.menu-dot {
-    width: 10px; 
-    height: 10px; 
-    background-color: white;
-    border-radius: 50%; 
-    margin: 0 5px; 
-}
-</style>
+        .menu-dot {
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+    </style>
 
 </head>
+
 <body>
-  
 
-<div class="profile-container">
-    <a href="#" id="editLink" class="edit" style="color: white;">Edit</a>
-    <div class="stats">
-        <div>5 Posts</div>
-        <div>12 Friends</div>
-    </div>
-    <div class="profile-header">Your Profile</div>
-    <div class="profile-photo">
-        <img src="https://via.placeholder.com/100" alt="Profile Photo">
-    </div>
-    <div class="profile-info">
+
+    <div class="profile-container">
+        <a href="#" id="editLink" class="edit" style="color: white;">Edit</a>
+        <div class="stats">
+            <div>5 Posts</div>
+            <div>12 Friends</div>
+        </div>
+        <div class="profile-header">Your Profile</div>
         <div class="profile-photo">
-            <!-- <img src="path-to-your-image.jpg" alt="Profile Photo"> -->
-        </div>        
-        <div class="profile-name">Jason Zhu, 25</div>
-        <div class="profile-bio">Graphic Designer by day, dog trainer by night</div>
-        <h2>Games I play</h2>
-        <div class="games-grid">
-            <div class="game-icon"></div>
-            <div class="game-icon"></div>
-            <div class="game-icon"></div>
-            <div class="game-icon"></div>
+            <img src="https://via.placeholder.com/100" alt="Profile Photo">
         </div>
-    </div>
-    <div class="bottom-bar">
-        <div class="menu-dots-container">
-            <div class="menu-dot"></div>
-            <div class="menu-dot"></div>
-            <div class="menu-dot"></div>
+        <div class="profile-info">
+            <div class="profile-photo">
+                <!-- <img src="path-to-your-image.jpg" alt="Profile Photo"> -->
+            </div>
+            <div class="profile-name">Jason Zhu, 25</div>
+            <div class="profile-bio">Graphic Designer by day, dog trainer by night</div>
+            <h2>Games I play</h2>
+            <div class="games-grid">
+                <div class="game-icon"></div>
+                <div class="game-icon"></div>
+                <div class="game-icon"></div>
+                <div class="game-icon"></div>
+            </div>
         </div>
+        <div class="bottom-bar">
+            <div class="menu-dots-container">
+                <div class="menu-dot"></div>
+                <div class="menu-dot"></div>
+                <div class="menu-dot"></div>
+            </div>
+        </div>
+        <div class="online-indicator"></div>
     </div>
-    <div class="online-indicator"></div>
-</div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
- 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
 
-    var editLink = document.getElementById("editLink");
-    editLink.addEventListener("click", function (event) {
-        event.preventDefault();
-        window.location.href = "EditProfile.html";
-    });
-});
 
-// function getAuthToken() {
-//     return localStorage.getItem('useroken');
-// }
+            var editLink = document.getElementById("editLink");
+            editLink.addEventListener("click", function (event) {
+                event.preventDefault();
+                window.location.href = "EditProfile.html";
+            });
+        });
+
+        // function getAuthToken() {
+        //     return localStorage.getItem('useroken');
+        // }
 
 
 
-// async function loadUserProfile() {
-//     const token = getAuthToken();
-//     if (!token) {
-//         console.error('Authentication token not found');
-//         window.location.href = 'signin.html'; // Redirect to login page
-//         return;
-//     }
+        // async function loadUserProfile() {
+        //     const token = getAuthToken();
+        //     if (!token) {
+        //         console.error('Authentication token not found');
+        //         window.location.href = 'signin.html'; // Redirect to login page
+        //         return;
+        //     }
 
-//     try {
-//         // Assuming you have a GET endpoint to fetch user details
-//         const response = await fetch(`http://localhost:5054/api/Users/profile`, { 
-//             headers: {
-//                 'Authorization': `Bearer ${token}`
-//             }
-//         });
+        //     try {
+        //         // Assuming you have a GET endpoint to fetch user details
+        //         const response = await fetch(`http://localhost:5054/api/Users/profile`, { 
+        //             headers: {
+        //                 'Authorization': `Bearer ${token}`
+        //             }
+        //         });
 
-//         if (!response.ok) {
-//             throw new Error('Failed to fetch user profile.');
-//         }
+        //         if (!response.ok) {
+        //             throw new Error('Failed to fetch user profile.');
+        //         }
 
-//         const user = await response.json();
-//         updateProfileUI(user);
-//     } catch (error) {
-//         console.error('Error:', error);
-//     }
-// }
+        //         const user = await response.json();
+        //         updateProfileUI(user);
+        //     } catch (error) {
+        //         console.error('Error:', error);
+        //     }
+        // }
 
-function updateProfileUI(user) {
-    if (user.profilePicturePath) {
-        const profilePhotoElement = document.querySelector('.profile-photo img');
-        profilePhotoElement.src = user.profilePicturePath;
-    }
+        function updateProfileUI(user) {
+            if (user.profilePicturePath) {
+                const profilePhotoElement = document.querySelector('.profile-photo img');
+                profilePhotoElement.src = user.profilePicturePath;
+            }
 
-    const profileBioElement = document.querySelector('.profile-bio');
-    profileBioElement.textContent = user.bio || 'No bio available.';
-}
+            const profileBioElement = document.querySelector('.profile-bio');
+            profileBioElement.textContent = user.bio || 'No bio available.';
+        }
 
 
-</script>
+    </script>
 </body>
+
 </html>

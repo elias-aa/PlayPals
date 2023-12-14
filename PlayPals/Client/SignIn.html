@@ -1,207 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /*General Styling//////////////////////////////////////////////////////////////*/
-    body, html {
-        height: 100%;
-        margin-top: 10px;
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background: #1a1a1a;
-    }
-    .center-white {
-        text-align: center;
-        color: white;
-    }
-    .square {
-        width: 100%;
-        height: 100%;
-        position: relative;
-    }
-    /*Button and Input //////////////////////////////////////////////////////////////*/
-    .back-button {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      cursor: pointer;
-      font-size: 1.5em;
-    }
-    .back-button:hover{
-        color: rgb(137, 137, 137);
-    }
-    .back-button::before {
-        content: '\2190';
-        font-size: 2em;
-        font-weight: bold;
-    }
-    input {
-        width: 300px;
-        padding: 10px;
-        border: 2px solid #0FC70F;
-        border-radius: 50px;
-        margin-bottom: 10px;
-        color: white;
-        background: none;
-        font-size: 1.2em;
-    }
-    .submitButton {
-        padding: 15px;
-        background-color: #0FC70F;
-        color: white;
-        font-size: 1.2em;
-        border-radius: 50px;
-        border: none;
-    }
-    .submitButton:hover {
-        background-color: rgb(28, 112, 28);
-        cursor: pointer;
-    }
-    .steamButton {
-        background-color: #4b4b4b;
-        color: white;
-    }
-    .steamButton:hover {
-        background-color: #2f2f2f;
-    }
-    /*Text Content//////////////////////////////////////////////////////////////*/
-    .title {
-        font-size: 3em;
-        margin-top: 0em;
-        margin-bottom: 0.5em;
-        color: white;
-    }
-    .terms {
-        margin-left: -20px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-    /*Logo//////////////////////////////////////////////////////////////*/
-    .logoP {
-        font-size: 10em;
-        color: white;
-        margin: 0;
-        padding: 0;
-    }
-    .logo-container {
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-    }
-    .logoP {
-        font-size: 10em;
-        color: white;
-        margin-top: -110px;
-        padding: 0;
-    }
-    .circle {
-        width: 50px;
-        height: 50px;
-        background-color: #0FC70F;
-        border-radius: 50%;
-        margin-left: -30px;
-        margin-bottom: 10px;
-    }
-    /*Circle Designs//////////////////////////////////////////////////////////////*/
-    .big-circle {
-        width: 250px;
-        height: 250px;
-        background: linear-gradient(to top right, rgba(15, 199, 15, 0.2), rgba(15, 199, 15, 1));
-        border-radius: 50%;
-        position: absolute;
-        top: 0;
-        left: 0px;
-    }
-    .medium-circle {
-        width: 175px;
-        height: 175px;
-        background: linear-gradient(to top right, rgba(15, 199, 15, 0.2), rgba(15, 199, 15, 1));
-        border-radius: 50%;
-        position: absolute;
-        top: 10%;
-        right: 5px;
-    }
-    .small-circle {
-        width: 140px;
-        height: 140px;
-        background: linear-gradient(to top right, rgba(15, 199, 15, 0.2), rgba(15, 199, 15, 1));
-        border-radius: 50%;
-        position: absolute;
-        top: 47%;
-        right: 110px;
-    }
-  </style>
-  <title>Sign In</title>
-</head>
-<body>
-  <div class="center-white">
-    <div class="back-button" onclick="goBack()"></div>
-    <div class="square">
-        <div class="big-circle"></div>
-        <div class="medium-circle"></div>
-        <div class="small-circle"></div>
-    </div>
-    <div class="logo-container">
-        <h1 class="logoP">P</h1>
-        <div class="circle"></div>
-    </div>
-    <h2 class="title">What's your email?</h2>
-    <p>Don't lose access to your account, <strong>verify your email</strong>.</p>
-    <form onsubmit="signIn(); return false;">
-        <input type="text" id="username" name="username" placeholder="Enter your email" required>
-        <br>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required>
-        <br>
-        <button class="submitButton" type="submit">Sign In</button>
-        <span style="color: white; margin: 0 10px;">or</span>
-        <button class="submitButton steamButton" type="button" onclick="signInWithSteam()">Sign In with Steam</button>
-    </form>
-    <p style="color: white;">Don't have an account? <a href="CreateAccount.html" style="color: #0FC70F;">Create Account</a></p>
-    <p class="terms">Terms of Use and Privacy</p>
-  </div>
-
-  <script>
-    function goBack() {
-      window.history.back();
-    }
-
-    async function signIn() {
-        try {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            const response = await fetch('http://localhost:5054/api/Users/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: username, password: password }),
-            });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`HTTP error! Status: ${response.status}, Text: ${errorText}`);
-            }
-
-            const user = await response.json();
-
-            if (user) {
-                window.location.href = 'Home.html';
-            } else {
-                alert('Incorrect username or password. Please try again.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /*General Styling//////////////////////////////////////////////////////////////*/
+        body,
+        html {
+            height: 100%;
+            margin-top: 10px;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #1a1a1a;
         }
-    }
 
-    function signInWithSteam() {
-        // Add Steam sign-in logic
-    }
-  </script>
+        .center-white {
+            text-align: center;
+            color: white;
+        }
+
+        .square {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /*Button and Input //////////////////////////////////////////////////////////////*/
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+
+        .back-button:hover {
+            color: rgb(137, 137, 137);
+        }
+
+        .back-button::before {
+            content: '\2190';
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        input {
+            width: 300px;
+            padding: 10px;
+            border: 2px solid #0FC70F;
+            border-radius: 50px;
+            margin-bottom: 10px;
+            color: white;
+            background: none;
+            font-size: 1.2em;
+        }
+
+        .submitButton {
+            padding: 15px;
+            background-color: #0FC70F;
+            color: white;
+            font-size: 1.2em;
+            border-radius: 50px;
+            border: none;
+        }
+
+        .submitButton:hover {
+            background-color: rgb(28, 112, 28);
+            cursor: pointer;
+        }
+
+        .steamButton {
+            background-color: #4b4b4b;
+            color: white;
+        }
+
+        .steamButton:hover {
+            background-color: #2f2f2f;
+        }
+
+        /*Text Content//////////////////////////////////////////////////////////////*/
+        .title {
+            font-size: 3em;
+            margin-top: 0em;
+            margin-bottom: 0.5em;
+            color: white;
+        }
+
+        .terms {
+            margin-left: -20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        /*Logo//////////////////////////////////////////////////////////////*/
+        .logoP {
+            font-size: 10em;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .logoP {
+            font-size: 10em;
+            color: white;
+            margin-top: -110px;
+            padding: 0;
+        }
+
+        .circle {
+            width: 50px;
+            height: 50px;
+            background-color: #0FC70F;
+            border-radius: 50%;
+            margin-left: -30px;
+            margin-bottom: 10px;
+        }
+
+        /*Circle Designs//////////////////////////////////////////////////////////////*/
+        .big-circle {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(to top right, rgba(15, 199, 15, 0.2), rgba(15, 199, 15, 1));
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0px;
+        }
+
+        .medium-circle {
+            width: 175px;
+            height: 175px;
+            background: linear-gradient(to top right, rgba(15, 199, 15, 0.2), rgba(15, 199, 15, 1));
+            border-radius: 50%;
+            position: absolute;
+            top: 10%;
+            right: 5px;
+        }
+
+        .small-circle {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(to top right, rgba(15, 199, 15, 0.2), rgba(15, 199, 15, 1));
+            border-radius: 50%;
+            position: absolute;
+            top: 47%;
+            right: 110px;
+        }
+    </style>
+    <title>Sign In</title>
+</head>
+
+<body>
+    <div class="center-white">
+        <div class="back-button" onclick="goBack()"></div>
+        <div class="square">
+            <div class="big-circle"></div>
+            <div class="medium-circle"></div>
+            <div class="small-circle"></div>
+        </div>
+        <div class="logo-container">
+            <h1 class="logoP">P</h1>
+            <div class="circle"></div>
+        </div>
+        <h2 class="title">What's your email?</h2>
+        <p>Don't lose access to your account, <strong>verify your email</strong>.</p>
+        <form onsubmit="signIn(); return false;">
+            <input type="text" id="username" name="username" placeholder="Enter your email" required>
+            <br>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <br>
+            <button class="submitButton" type="submit">Sign In</button>
+            <span style="color: white; margin: 0 10px;">or</span>
+            <button class="submitButton steamButton" type="button" onclick="signInWithSteam()">Sign In with
+                Steam</button>
+        </form>
+        <p style="color: white;">Don't have an account? <a href="CreateAccount.html" style="color: #0FC70F;">Create
+                Account</a></p>
+        <p class="terms">Terms of Use and Privacy</p>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        async function signIn() {
+            try {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                const response = await fetch('http://localhost:5054/api/Users/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: username, password: password }),
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error! Status: ${response.status}, Text: ${errorText}`);
+                }
+
+                const user = await response.json();
+
+                if (user) {
+                    window.location.href = 'Home.html';
+                } else {
+                    alert('Incorrect username or password. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function signInWithSteam() {
+            // Add Steam sign-in logic
+        }
+    </script>
 </body>
+
 </html>

@@ -11,8 +11,8 @@ using PlayPals.Services;
 namespace PlayPals.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231211230439_UpdateUserModel")]
-    partial class UpdateUserModel
+    [Migration("20231214000456_UserModel")]
+    partial class UserModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,7 +27,6 @@ namespace PlayPals.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Bio")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -43,7 +42,6 @@ namespace PlayPals.Migrations
                         .HasColumnType("BLOB");
 
                     b.Property<string>("ProfilePicturePath")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("UserId");

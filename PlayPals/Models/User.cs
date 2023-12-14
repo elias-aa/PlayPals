@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace PlayPals.Models
 {
@@ -11,14 +10,15 @@ namespace PlayPals.Models
     {
         [Key]
         public Guid UserId { get; set; }
-        [Required][EmailAddress]
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
 
-        public string ProfilePicturePath { get; set; }
+        public string? ProfilePicturePath { get; set; }
 
-        public string Bio {get; set;}
+        public string? Bio { get; set; }
 
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {

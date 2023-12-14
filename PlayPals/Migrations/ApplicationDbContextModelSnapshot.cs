@@ -24,7 +24,6 @@ namespace PlayPals.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Bio")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -40,7 +39,6 @@ namespace PlayPals.Migrations
                         .HasColumnType("BLOB");
 
                     b.Property<string>("ProfilePicturePath")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("UserId");
