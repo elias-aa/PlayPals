@@ -1,0 +1,57 @@
+.genre-selection-container {
+    background-color: #1a1a1a; /* Dark background */
+    color: white;
+    padding: 20px;
+    max-width: 600px; /* Adjust based on your design */
+    margin: auto;
+    text-align: center;
+}
+
+.back-arrow {
+    font-size: 24px;
+    text-decoration: none;
+    color: white;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.genre-selection-title {
+    margin-bottom: 30px;
+}
+
+.genre-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Adjust size as needed */
+    gap: 15px; /* Space between boxes */
+    padding-bottom: 30px;
+}
+
+.genre-box {
+    border: 1px solid #0FC70F; /* Genre box border */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer;
+}
+
+.genre-box.selected {
+    background-color: #0FC70F; /* Highlight color for selected genres */
+}
+
+.genre-next-button {
+    background-color: #0FC70F; /* Next button color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .genre-selection-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+}
