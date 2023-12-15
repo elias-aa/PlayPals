@@ -88,7 +88,6 @@ document.getElementById('createAccountForm').addEventListener('submit', async fu
         storeEmail(data.email);
         console.log(data.token);
         console.log(data.email);
-        print(data.email)
         // Redirect to the login page after successful registration
         window.location.href = '../AymanHtml/GenrePage.html';
        
