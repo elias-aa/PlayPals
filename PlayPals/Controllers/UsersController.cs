@@ -29,11 +29,11 @@ namespace PlayPals.Controllers
             _db = db;
             _configuration = configuration;
         }
-        // POST /api/users/{userId}/post
-        [HttpPost("{userId}/post")]
-        public async Task<IActionResult> AddPostToUser(Guid userId, PostDto postDto)
+        // POST /api/users/{emailId}/post
+        [HttpPost("{emailId}/post")]
+        public async Task<IActionResult> AddPostToUser(string emailId, PostDto postDto)
         {
-            var user = await _db.Users.Include(u => u.Posts).FirstOrDefaultAsync(u => u.UserId == userId);
+            var user = await _db.Users.Include(u => u.Posts).FirstOrDefaultAsync(u => u.Email == emailId);
             if (user == null)
             {
                 return NotFound("User not found.");
@@ -73,6 +73,48 @@ namespace PlayPals.Controllers
 
             return Ok(response);
         }
+        // public async Task<IActionResult> AddPostToUser(Guid userId, PostDto postDto)
+        // {
+        //     var user = await _db.Users.Include(u => u.Posts).FirstOrDefaultAsync(u => u.UserId == userId);
+        //     if (user == null)
+        //     {
+        //         return NotFound("User not found.");
+        //     }
+
+        //     var newPost = new Post
+        //     {
+        //         User = user,
+        //         Content = postDto.Content,
+        //         PostingDate = DateTime.Now
+        //     };
+
+        //     if (user.Posts != null)
+        //     {
+        //         user.Posts.Add(newPost);
+        //     }
+        //     else
+        //     {
+        //         user.Posts = new List<Post> { newPost };
+        //     }
+        //     await _db.SaveChangesAsync();
+
+        //     var lastTenPosts = user.Posts.OrderByDescending(p => p.PostingDate).Take(10).Select(p => new PostDto
+        //     {
+        //         PostId = p.PostId,
+        //         Content = p.Content,
+        //         UserName = user.Email,
+        //         PostingDate = p.PostingDate
+        //     }).ToList();
+
+        //     var response = new
+        //     {
+        //         Id = user.UserId,
+        //         userEmail = user.Email,
+        //         Posts = lastTenPosts
+        //     };
+
+        //     return Ok(response);
+        // }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()

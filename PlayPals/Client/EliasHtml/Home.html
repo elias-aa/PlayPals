@@ -233,6 +233,16 @@
         </nav>
 
         <script>
+            fetch("http://localhost:5054/api/Users", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.log(error));
+
             document.addEventListener("DOMContentLoaded", function () {
                 var buttonA = document.getElementById("buttonA");
                 var buttonB = document.getElementById("buttonB");
@@ -295,9 +305,10 @@
     
                     const formData = new FormData(postForm);
                     const postContent = formData.get("textInput");
-    
+                    const userEmail = localStorage.getItem('userEmail');
+                    
                     // Use fetch to send a POST request to your server
-                    fetch(`http://localhost:5054/api/users/{userId}/post`, {
+                    fetch(`http://localhost:5054/api/users/${userEmail}/post`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

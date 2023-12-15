@@ -23,6 +23,34 @@ namespace PlayPals.Controllers
             _configuration = configuration;
         }
 
+        // GET: /api/preferences/
+        [HttpGet]
+        public async Task<IActionResult> GetAllPreferences()
+        {
+            var response = await _db.Users
+                .Include(u => u.Genres)
+                .Include(u => u.Platforms)
+                .Select(u => new
+                {
+                    id = u.UserId,
+                    email = u.Email,
+                    genres = u.Genres.Select(g => new
+                    {
+                        id = g.Id,
+                        name = g.Name
+                    }),
+                    platforms = u.Platforms.Select(p => new
+                    {
+                        id = p.Id,
+                        name = p.Name
+                    })
+                })
+                .OrderBy(u => u.email)
+                .ToListAsync();
+
+            return Ok(response);
+        }
+
         // POST: /api/preferences/{email}/genres
         [HttpPost("{email}/genres")]
         public async Task<IActionResult> AddGenre(string email, Genre genre)
