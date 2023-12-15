@@ -16,16 +16,16 @@
                 background: #1a1a1a;
                 position: relative;
             }
-
+    
             h1 {
                 margin-top: 20px;
                 color: #fff;
             }
-
+    
             .titleFont {
                 font-size: 50px;
             }
-
+    
             nav {
                 display: flex;
                 justify-content: center;
@@ -38,7 +38,7 @@
                 padding: 15px;
                 font-weight: bold;
             }
-
+    
             nav a {
                 text-decoration: none;
                 color: #fff;
@@ -53,7 +53,7 @@
                 font-size: 20px;
                 position: relative;
             }
-
+    
             nav a:not(:last-child)::after {
                 content: '';
                 width: 1px;
@@ -64,11 +64,11 @@
                 left: 100%;
                 transform: translateX(15px);
             }
-
+    
             nav a:hover {
                 background-color: rgb(28, 112, 28);
             }
-
+    
             .p-element {
                 position: absolute;
                 left: 10%;
@@ -78,7 +78,7 @@
                 font-size: 35px;
                 font-weight: bold;
             }
-            
+    
             .p-dot {
                 width: 15px;
                 height: 15px;
@@ -89,7 +89,7 @@
                 top: 6%;
                 transform: translateY(-50%);
             }
-
+    
             .about-button {
                 position: absolute;
                 right: 10%;
@@ -99,7 +99,7 @@
                 font-size: 35px;
                 font-weight: bold;
             }
-
+    
             .button-container {
                 display: flex;
                 width: 60%;
@@ -109,7 +109,7 @@
                 overflow: hidden;
                 background-color: lightgray;
             }
-
+    
             button {
                 flex-grow: 1;
                 padding: 15px;
@@ -119,12 +119,12 @@
                 background-color: transparent;
                 cursor: pointer;
             }
-
+    
             button.selected {
                 background-color: gray;
                 border-radius: 50px;
             }
-
+    
             .overlay {
                 display: none;
                 position: fixed;
@@ -137,7 +137,7 @@
                 align-items: center;
                 z-index: 2;
             }
-
+    
             .about-popup {
                 background: #fff;
                 padding: 20px;
@@ -146,7 +146,7 @@
                 width: 100%;
                 text-align: center;
             }
-
+    
             .about-popup .close-button {
                 background-color: #0FC70F;
                 color: #fff;
@@ -157,20 +157,40 @@
                 cursor: pointer;
                 margin-top: 15px;
             }
-
+    
             .about-popup .close-button:hover {
                 background-color: rgb(28, 112, 28);
             }
-
+    
             .content-frame {
+                display: flex;
+                flex-direction: column;
                 height: 60%;
                 width: 80%;
-                background-color: lightgray;
-                padding-top: 20px;
+                background-color: transparent;
+                padding: 20px;
                 border-radius: 15px;
                 margin-top: 20px;
+                position: relative;
+                /* flex-wrap: wrap; */
+                /* justify-content: space-evenly; */
             }
-            
+    
+            .post {
+                background-color: white;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                padding: 15px;
+                margin-bottom: 5px;
+            }
+    
+            .post h2 {
+                margin-bottom: 5px;
+            }
+    
+            .post small {
+                color: #888;
+            }
         </style>
         <title>Home</title>
     </head>
@@ -188,6 +208,11 @@
             <button id="buttonC">Friends Posts</button>
         </div>
 
+        <form id="postForm" action="" method="post">
+            <input type="text" id="textInput" name="textInput" placeholder="Enter your post content" required>
+            <button type="submit">Submit</button>
+        </form>
+
         <div class="overlay" id="aboutOverlay">
             <div class="about-popup">
                 <h2>Authors</h2>
@@ -198,8 +223,7 @@
             </div>
         </div>
 
-        <div class="content-frame">
-        </div>
+        <div class="content-frame" id="postContainer"></div>
 
         <nav>
             <a href="../Profile.html">Profile</a>
@@ -209,19 +233,13 @@
         </nav>
 
         <script>
-            function toggleAboutScreen() {
-                console.log("Toggle about screen called");
-                var overlay = document.getElementById("aboutOverlay");
-                overlay.style.display = (overlay.style.display === "none" || overlay.style.display === "") ? "flex" : "none";
-            }
-
             document.addEventListener("DOMContentLoaded", function () {
                 var buttonA = document.getElementById("buttonA");
                 var buttonB = document.getElementById("buttonB");
                 var buttonC = document.getElementById("buttonC");
-
+    
                 buttonB.classList.add("selected");
-
+    
                 buttonA.addEventListener("click", function () {
                     resetButtonStyles();
                     buttonA.classList.add("selected");
@@ -234,12 +252,67 @@
                     resetButtonStyles();
                     buttonC.classList.add("selected");
                 });
-
+    
                 function resetButtonStyles() {
                     buttonA.classList.remove("selected");
                     buttonB.classList.remove("selected");
                     buttonC.classList.remove("selected");
                 }
+    
+                // Fetch posts and update the content-frame
+                fetch("http://localhost:5054/api/posts?page=1")
+                    .then(response => response.json())
+                    .then(data => {
+                        const postContainer = document.getElementById("postContainer");
+                        console.log(data);
+    
+                        // Clear existing content
+                        postContainer.innerHTML = "";
+    
+                        // Loop through each post in the data array
+                        data.data.forEach(post => {
+                            // Create post element
+                            const postElement = document.createElement("div");
+                            postElement.classList.add("post");
+    
+                            // Populate post content
+                            postElement.innerHTML = `
+                                <h2>${post.userName}</h2>
+                                <p>${post.content}</p>
+                                <small>${new Date(post.postingDate).toLocaleString()}</small>
+                            `;
+    
+                            // Append post element to the content-frame
+                            postContainer.appendChild(postElement);
+                        });
+                    })
+                    .catch(error => console.error("Error fetching posts:", error));
+    
+                const postForm = document.getElementById("postForm");
+    
+                postForm.addEventListener("submit", function (event) {
+                    event.preventDefault(); // Prevent the default form submission
+    
+                    const formData = new FormData(postForm);
+                    const postContent = formData.get("textInput");
+    
+                    // Use fetch to send a POST request to your server
+                    fetch(`http://localhost:5054/api/users/{userId}/post`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            content: postContent
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle the response, e.g., update the UI with the new post
+                        console.log(data);
+                    })
+                    .catch(error => console.error("Error adding post:", error));
+                });
             });
         </script>
     </body>

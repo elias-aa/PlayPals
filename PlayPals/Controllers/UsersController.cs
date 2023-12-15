@@ -20,7 +20,53 @@ namespace PlayPals.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly ApplicationDbContext _db;
+        // POST /api/users/{userId}/post
+        [HttpPost("{userId}/post")]
+        public async Task<IActionResult> AddPostToUser(Guid userId, PostDto postDto)
+        {
+            var user = await _db.Users.Include(u => u.Posts).FirstOrDefaultAsync(u => u.UserId == userId);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            var newPost = new Post
+            {
+                User =  user,
+                Content = postDto.Content,
+                PostingDate = DateTime.Now
+            };
+
+            if (user.Posts != null)
+            {
+                user.Posts.Add(newPost);
+            }
+            else
+            {
+                user.Posts = new List<Post> { newPost };
+            }
+            await _db.SaveChangesAsync();
+
+            var lastTenPosts = user.Posts.OrderByDescending(p => p.PostingDate).Take(10).Select(p => new PostDto
+            {
+                PostId = p.PostId,
+                Content = p.Content,
+                UserName = user.Email,
+                PostingDate = p.PostingDate
+            }).ToList();
+
+            var response = new
+            {
+                Id = user.UserId,
+                userEmail = user.Email,
+                Posts = lastTenPosts
+            };
+
+            return Ok(response);
+        }
+
+        private ApplicationDbContext _db = new ApplicationDbContext();
+
         private readonly IConfiguration _configuration;
 
         public UsersController(ApplicationDbContext db, IConfiguration configuration)
@@ -34,7 +80,8 @@ namespace PlayPals.Controllers
         {
             return await _db.Users.ToListAsync();
         }
-
+        
+        // POST: api/Users/register
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserDto userDto)
         {
