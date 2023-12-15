@@ -81,7 +81,7 @@ document.getElementById('createAccountForm').addEventListener('submit', async fu
 
         // Redirect to the login page after successful registration
         window.location.href = 'home.html';
-        // storeToken(token);
+       
 
      
         

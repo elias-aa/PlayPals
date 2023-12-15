@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="javascript/fernandaScript.js"></script>
+
     <title>Profile Page</title>
     <style>
         * {
@@ -190,14 +192,11 @@
         </div>
         <div class="profile-header">Your Profile</div>
         <div class="profile-photo">
-            <img src="https://via.placeholder.com/100" alt="Profile Photo">
+            <img src="https://via.placeholder.com/100" alt="Profile Photo" id="profilePicture"> <!-- Add an ID to the profile picture -->
         </div>
         <div class="profile-info">
-            <div class="profile-photo">
-                <!-- <img src="path-to-your-image.jpg" alt="Profile Photo"> -->
-            </div>
             <div class="profile-name">Jason Zhu, 25</div>
-            <div class="profile-bio">Graphic Designer by day, dog trainer by night</div>
+            <div class="profile-bio" id="profileBio"></div> <!-- Add an ID to the profile bio -->
             <h2>Games I play</h2>
             <div class="games-grid">
                 <div class="game-icon"></div>
@@ -205,7 +204,7 @@
                 <div class="game-icon"></div>
                 <div class="game-icon"></div>
             </div>
-        </div>
+        </div>        
         <div class="bottom-bar">
             <div class="menu-dots-container">
                 <div class="menu-dot"></div>
@@ -215,6 +214,7 @@
         </div>
         <div class="online-indicator"></div>
     </div>
+    
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -227,48 +227,9 @@
             });
         });
 
-        // function getAuthToken() {
-        //     return localStorage.getItem('useroken');
-        // }
+        
 
-
-
-        // async function loadUserProfile() {
-        //     const token = getAuthToken();
-        //     if (!token) {
-        //         console.error('Authentication token not found');
-        //         window.location.href = 'signin.html'; // Redirect to login page
-        //         return;
-        //     }
-
-        //     try {
-        //         // Assuming you have a GET endpoint to fetch user details
-        //         const response = await fetch(`http://localhost:5054/api/Users/profile`, { 
-        //             headers: {
-        //                 'Authorization': `Bearer ${token}`
-        //             }
-        //         });
-
-        //         if (!response.ok) {
-        //             throw new Error('Failed to fetch user profile.');
-        //         }
-
-        //         const user = await response.json();
-        //         updateProfileUI(user);
-        //     } catch (error) {
-        //         console.error('Error:', error);
-        //     }
-        // }
-
-        function updateProfileUI(user) {
-            if (user.profilePicturePath) {
-                const profilePhotoElement = document.querySelector('.profile-photo img');
-                profilePhotoElement.src = user.profilePicturePath;
-            }
-
-            const profileBioElement = document.querySelector('.profile-bio');
-            profileBioElement.textContent = user.bio || 'No bio available.';
-        }
+        
 
 
     </script>

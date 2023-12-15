@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="javascript/fernandaScript.js"></script>
     <title>Edit Profile</title>
     <style>
         * {
@@ -27,7 +28,7 @@
             padding: 0;
         }
 
-        .profile-container {
+        .content-container {
             width: calc(100% - 100px);
             min-height: calc(100vh - 40px);
             background-color: #444;
@@ -79,112 +80,23 @@
 
 <body>
 
-    <div class="profile-container">
-        <form class="edit-form" onsubmit="handleSubmit(); return false;">
+   
+    <div class="content-container">
+        <form class="edit-form">
             <label for="newProfilePic">Upload New Profile Picture:</label>
             <input type="file" id="newProfilePic" name="newProfilePic">
-
+    
             <label for="newBio">Change Bio:</label>
             <textarea id="newBio" name="newBio" placeholder="Enter your new bio"></textarea>
-
+    
             <button type="submit">Save Changes</button>
         </form>
-    </div>
+</div>
+
 
     <script>
-        async function uploadProfilePicture() {
-            const input = document.getElementById('newProfilePic');
-            if (!input.files[0]) return;
-
-            let formData = new FormData();
-            formData.append('file', input.files[0]);
-
-            const token = localStorage.getItem('userToken');
-            if (!token) {
-                console.error('Authentication token not found');
-                // Redirect to login page or show an error message
-                return;
-            }
-
-            try {
-                const response = await fetch(`http://localhost:5054/api/UserProfile/uploadProfilePicture`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: formData
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to upload profile picture');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
-        async function updateBio() {
-            const bio = document.getElementById('newBio').value;
-            const token = localStorage.getItem('userToken');
-            if (!token) {
-                console.error('Authentication token not found');
-                window.location.href = 'SignIn.html'; // Redirect to the login page
-                return;
-            }
-
-
-            try {
-                const response = await fetch(`http://localhost:5054/api/UserProfile/updateBio`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({ newBio: bio })
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to update bio');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
-        async function fetchDataWithToken() {
-            const token = localStorage.getItem('userToken');
-            if (!token) {
-                console.error('No token found');
-                return;
-            }
-
-            try {
-                const response = await fetch("http://localhost:5054/api/Users", {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch data');
-                }
-
-                const data = await response.json();
-                console.log(data);
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
-
-        async function handleSubmit() {
-            await uploadProfilePicture();
-            await updateBio();
-            alert('Profile updated successfully.');
-        }
-    </script>
+       
+     </script>
 
 </body>
 

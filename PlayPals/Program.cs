@@ -9,23 +9,21 @@ using Microsoft.Extensions.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(options => {
+builder.Services.AddCors(options =>
+{
     options.AddPolicy("AllowAll", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
-builder.Services.AddDbContext<ApplicationDbContext>();
+// Configure DbContext for SQLite
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-
-// Configuroing JWT Authentication
+// Configuring JWT Authentication
 var secretKey = builder.Configuration.GetValue<string>("JwtConfig:SecretKey");
-Console.WriteLine($"Secret Key: {secretKey}"); // Debugging
-
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -45,17 +43,16 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-
 app.UseHttpsRedirection();
 
-app.UseAuthentication(); // new line
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

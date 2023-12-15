@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PlayPals.Models;
 
@@ -9,11 +5,20 @@ namespace PlayPals.Services
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<User> Users{get; set;}
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; } // Add this line
+
+
+        // Add this constructor
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
+            : base(options)
         {
-            optionsBuilder.UseSqlite("Filename=applicationDb.db");
         }
 
+        // You can remove or comment out the OnConfiguring method if you are configuring the DbContext in Program.cs
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     optionsBuilder.UseSqlite("Filename=applicationDb.db");
+        // }
     }
 }

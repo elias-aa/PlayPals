@@ -189,43 +189,48 @@
     </div>
 
     <script>
-        function goBack() {
-            window.history.back();
-        }
+      
+   function goBack() {
+        window.history.back();
+    }
 
-        async function signIn() {
-            try {
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
+    async function signIn() {
+        try {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-                const response = await fetch('http://localhost:5054/api/Users/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email: username, password: password }),
-                });
+            const response = await fetch('http://localhost:5054/api/Users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: username, password: password }),
+            });
 
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`HTTP error! Status: ${response.status}, Text: ${errorText}`);
-                }
-
-                const user = await response.json();
-
-                if (user) {
-                    window.location.href = 'Home.html';
-                } else {
-                    alert('Incorrect username or password. Please try again.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! Status: ${response.status}, Text: ${errorText}`);
             }
-        }
 
-        function signInWithSteam() {
-            // Add Steam sign-in logic
+            const data = await response.json();
+
+            // Storing the token in localStorage
+            if (data && data.token) {
+                localStorage.setItem('userToken', data.token);
+                window.location.href = 'Home.html'; // Redirect to home page after successful login
+            } else {
+                alert('Incorrect username or password. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Login failed: ' + error.message);
         }
+    }
+
+    function signInWithSteam() {
+        // Add Steam sign-in logic
+    }
+
     </script>
 </body>
 
