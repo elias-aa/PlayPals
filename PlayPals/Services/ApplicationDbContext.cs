@@ -21,10 +21,10 @@ namespace PlayPals.Services
         // {
         //     optionsBuilder.UseSqlite("Filename=applicationDb.db");
         // }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Filename=applicationDb.db");
-        }
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     optionsBuilder.UseSqlite("Filename=applicationDb.db");
+        // }
 
     }
 }

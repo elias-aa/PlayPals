@@ -11,7 +11,7 @@ using PlayPals.Services;
 namespace PlayPals.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231214195037_InitialDB")]
+    [Migration("20231215024915_InitialDB")]
     partial class InitialDB
     {
         /// <inheritdoc />
@@ -49,9 +49,6 @@ namespace PlayPals.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Bio")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -64,12 +61,31 @@ namespace PlayPals.Migrations
                         .IsRequired()
                         .HasColumnType("BLOB");
 
-                    b.Property<string>("ProfilePicturePath")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("PlayPals.Models.UserProfile", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Bio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProfilePicturePath")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserProfiles");
                 });
 
             modelBuilder.Entity("PlayPals.Models.Post", b =>
@@ -77,6 +93,17 @@ namespace PlayPals.Migrations
                     b.HasOne("PlayPals.Models.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PlayPals.Models.UserProfile", b =>
+                {
+                    b.HasOne("PlayPals.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

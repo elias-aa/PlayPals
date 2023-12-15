@@ -20,6 +20,15 @@ namespace PlayPals.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
+        private ApplicationDbContext _db;
+
+        private readonly IConfiguration _configuration;
+
+        public UsersController(ApplicationDbContext db, IConfiguration configuration)
+        {
+            _db = db;
+            _configuration = configuration;
+        }
         // POST /api/users/{userId}/post
         [HttpPost("{userId}/post")]
         public async Task<IActionResult> AddPostToUser(Guid userId, PostDto postDto)
@@ -32,7 +41,7 @@ namespace PlayPals.Controllers
 
             var newPost = new Post
             {
-                User =  user,
+                User = user,
                 Content = postDto.Content,
                 PostingDate = DateTime.Now
             };
@@ -65,22 +74,12 @@ namespace PlayPals.Controllers
             return Ok(response);
         }
 
-        private ApplicationDbContext _db = new ApplicationDbContext();
-
-        private readonly IConfiguration _configuration;
-
-        public UsersController(ApplicationDbContext db, IConfiguration configuration)
-        {
-            _db = db;
-            _configuration = configuration;
-        }
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _db.Users.ToListAsync();
         }
-        
+
         // POST: api/Users/register
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserDto userDto)
@@ -130,7 +129,7 @@ namespace PlayPals.Controllers
             var key = Encoding.ASCII.GetBytes(_configuration["JwtConfig:SecretKey"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] 
+                Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.UserId.ToString())
                 }),
