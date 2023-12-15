@@ -6,9 +6,10 @@ namespace PlayPals.Services
     public class ApplicationDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<UserProfile> UserProfiles { get; set; } // Add this line
+        public DbSet<UserProfile> UserProfiles { get; set; } 
         public DbSet<Post> Posts{get; set;}
-
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Platform> Platforms { get; set; }
 
         // Add this constructor
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 

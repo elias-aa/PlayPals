@@ -214,10 +214,12 @@
 
             const data = await response.json();
 
-            // Storing the token in localStorage
-            if (data && data.token) {
-                localStorage.setItem('userToken', data.token);
-                window.location.href = 'Home.html'; // Redirect to home page after successful login
+            // Storing the email in localStorage
+            if(data) {
+                // Store the email in localStorage
+                localStorage.setItem('userEmail', username);
+                // Redirect to home page after successful login
+                window.location.href = 'Home.html';
             } else {
                 alert('Incorrect username or password. Please try again.');
             }

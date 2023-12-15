@@ -1,57 +1,77 @@
-.genre-selection-container {
-    background-color: #1a1a1a; /* Dark background */
-    color: white;
-    padding: 20px;
-    max-width: 600px; /* Adjust based on your design */
-    margin: auto;
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #1a1a1a;
+}
+
+.center-white {
     text-align: center;
-}
-
-.back-arrow {
-    font-size: 24px;
-    text-decoration: none;
     color: white;
-    position: absolute;
-    top: 20px;
-    left: 20px;
 }
 
-.genre-selection-title {
-    margin-bottom: 30px;
+/* Text Content */
+.title {
+    font-size: 4em; /* Adjusted for better visual fit */
+    color: #0ADD08; /* Single color for simplicity */
 }
 
-.genre-selection-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Adjust size as needed */
-    gap: 15px; /* Space between boxes */
-    padding-bottom: 30px;
+.subtitle {
+    margin-top: 0.5em; /* Reduced margin */
+    font-size: 1.5em; /* Reduced font size */
+    color: white; /* Single color for simplicity */
 }
 
-.genre-box {
-    border: 1px solid #0FC70F; /* Genre box border */
-    padding: 20px;
-    border-radius: 10px; /* Rounded corners */
-    cursor: pointer;
+.powered-by {
+    margin-top: 2em;
+    font-size: 1.2em;
+    color: #0ADD08; /* Adjusted color for visibility */
 }
 
-.genre-box.selected {
-    background-color: #0FC70F; /* Highlight color for selected genres */
+/* Button and Select Dropdown */
+.button-container {
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.genre-next-button {
-    background-color: #0FC70F; /* Next button color */
+select {
+    padding: 10px;
+    margin-bottom: 1em; /* Added space between select and button */
+    background-color: #333;
+    color: white;
+    border: 1px solid #0ADD08;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #0FC70F;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
+    padding: 10px 20px; /* Adjusted padding for better fit */
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
+    border-radius: 10px;
+    font-size: 1.75em;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    .genre-selection-grid {
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    }
+button:hover {
+    background-color: rgb(28, 112, 28);
+}
+
+/* Shapes */
+.circle-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; /* Adjusted width for visual balance */
+    height: 600px; /* Adjusted height for visual balance */
+    border: 2px solid #0FC70F;
+    border-radius: 50%;
+    z-index: -1;
 }

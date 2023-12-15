@@ -17,6 +17,8 @@ namespace PlayPals.Models
         public byte[] PasswordSalt { get; set; }
 
         public List<Post>? Posts { get; set; }
+        public List<Genre>? Genres { get; set; }
+        public List<Platform>? Platforms { get; set; }
 
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {

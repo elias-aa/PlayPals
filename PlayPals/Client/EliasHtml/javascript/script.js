@@ -13,6 +13,11 @@ function storeToken(token) {
     localStorage.setItem('userToken', token);
 }
 
+// Function to store the email in localStorage
+function storeEmail(email) {
+    localStorage.setItem('userEmail', email);
+}
+
 // Function to retrieve the authentication token from localStorage
 function getAuthToken() {
     return localStorage.getItem('userToken');
@@ -79,8 +84,13 @@ document.getElementById('createAccountForm').addEventListener('submit', async fu
         const data = await response.json();
         console.log('Success:', data);
 
+        // Store the authentication token and email in localStorage
+        storeEmail(data.email);
+        console.log(data.token);
+        console.log(data.email);
+        print(data.email)
         // Redirect to the login page after successful registration
-        window.location.href = 'home.html';
+        window.location.href = '../AymanHtml/GenrePage.html';
        
 
      

@@ -1,21 +1,27 @@
 <!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Your Favorite Genres</title>
-    <link rel="stylesheet" href="/PlayPals/Client/AymanHtml/CSS/main.css"> <!-- Update this with your actual stylesheet path -->
+    <title>Select Your Favourite Genre</title>
+    <link rel="stylesheet" href="CSS/main.css">
 </head>
 <body>
-    <div class="genre-selection-container">
-        <a href="previous_page.html" class="back-arrow">&larr;</a>
-        <h1 class="genre-selection-title">Select Your Favourite Genres</h1>
-        <div class="genre-selection-grid" id="genreGrid">
-            <!-- Genres will be populated here by JavaScript -->
+    <div class="center-white">
+        <h1 class="title"><span class="play">Select</span> <span class="pals">Genre</span></h1>
+        <p class="subtitle">Choose your <span class="get-gaming">favourite</span></p>
+        <div class="button-container">
+            <select id="genre-select" title="Select Genre" class="genre-select">
+                <option value="">--Select Genre--</option>
+                <option value="action">Action</option>
+                <option value="adventure">Adventure</option>
+                <option value="rpg">RPG</option>
+            </select>
+            <button id="save-genre">Save Genre</button>
         </div>
-        <button class="genre-next-button" id="nextButton">Next</button>
+        <div class="powered-by">Powered by PlayPals</div>
     </div>
-
-    <script src="path_to_your_script.js"></script> <!-- Update this with your actual script path -->
+    <div class="circle-container"></div>
+    <script src="JS/genrePage.js"></script>
 </body>
 </html>
