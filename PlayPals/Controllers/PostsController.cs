@@ -10,7 +10,7 @@ using PlayPals.Responses;
 
 // Done By Elias Alissandratos
 // Purpose of the controller: To allow the user to create a post and view all posts.
-// Methods used in the controller: Get, Post, Put, Delete.
+// Methods used in the controller: Get, Post.
 
 namespace PlayPals.Controllers
 {
