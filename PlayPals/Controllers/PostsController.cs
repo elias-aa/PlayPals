@@ -9,6 +9,9 @@ using PlayPals.DTOs;
 using PlayPals.Responses;
 
 // Done By Elias Alissandratos
+// Purpose of the controller: To allow the user to create a post and view all posts.
+// Methods used in the controller: Get, Post, Put, Delete.
+
 namespace PlayPals.Controllers
 {
     [ApiController]

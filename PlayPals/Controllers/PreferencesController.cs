@@ -8,6 +8,9 @@ using PlayPals.Models;
 using PlayPals.Services;
 
 // Done by Ayman Tauhid
+// Purpose of the controller: To store the preferences of the user in the database.
+// Methods in controller: GetAllPreferences, AddGenre, AddPlatform
+
 namespace PlayPals.Controllers
 {
     [ApiController]

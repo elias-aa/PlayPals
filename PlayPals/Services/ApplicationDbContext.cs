@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using PlayPals.Models;
 
+// Done by Ayman Tauhid
+// Purpose of the mode: To store the application database in the database.
+
 namespace PlayPals.Services
 {
     public class ApplicationDbContext : DbContext
@@ -15,7 +18,6 @@ namespace PlayPals.Services
         {
         }
 
-        // You can remove or comment out the OnConfiguring method if you are configuring the DbContext in Program.cs
         // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         // {
         //     optionsBuilder.UseSqlite("Filename=applicationDb.db");

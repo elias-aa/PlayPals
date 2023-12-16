@@ -9,6 +9,9 @@ using PlayPals.Responses;
 using PlayPals.Services;
 
 // Done by Ayman Tauhid
+// Purpose of the mode: To find friends with similar genre and platform preferences
+// Methods used: GetFriends, AddFriend
+
 namespace PlayPals.Controllers
 {
     [ApiController]

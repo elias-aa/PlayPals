@@ -15,6 +15,9 @@ using PlayPals.Services;
 using Microsoft.Extensions.Configuration;
 
 // Done by Elias Alissandratos
+// Purpose of the controller: To handle the requests from the client and send the response back to the client.
+// Methods used in the controller: GetUsers, Register, Login, GetUser, AddPostToUser
+
 namespace PlayPals.Controllers
 {
     [ApiController]

@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
+// Done by Elias Aliisandratos
+// Purpose of the mode: To store the user in the database.
+
 namespace PlayPals.Models
 {
     public class User

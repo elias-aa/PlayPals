@@ -7,6 +7,9 @@ using System;
 using System.Threading.Tasks;
 
 // Done By Fernanda Battig
+// Purpose of the controller: To handle the user profile.
+// Methods: UpdateProfilePicture, UpdateBio, GetUserProfile
+
 namespace PlayPals.Controllers
 {
     [ApiController]

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+// Done by Fernanda Battig
+// Purpose of the mode: To store the user profile in the database.
+
 namespace PlayPals.DTOs
 {
     public class UserProfileDto
