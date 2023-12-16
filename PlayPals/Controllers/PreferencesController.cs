@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using PlayPals.Models;
 using PlayPals.Services;
 
+// Done by Ayman Tauhid
 namespace PlayPals.Controllers
 {
     [ApiController]
