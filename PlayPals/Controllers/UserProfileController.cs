@@ -3,12 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using PlayPals.DTOs;
 using PlayPals.Models;
 using PlayPals.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Threading.Tasks;
-using System.IO;
-using System.Security.Claims;
 
 namespace PlayPals.Controllers
 {
@@ -23,28 +19,28 @@ namespace PlayPals.Controllers
             _db = db;
         }
 
-        // PUT /api/userProfile/uploadProfilePicture
+        // PUT /api/userProfile/{emailId}/uploadProfilePicture
         [HttpPut("{emailId}/uploadProfilePicture")]
-        public async Task<IActionResult> AddImageToUser(string emailId, [FromBody]string imageUrl)
+        public async Task<IActionResult> UpdateProfilePicture(string emailId, [FromBody] ProfilePictureUpdateModel model)
         {
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == emailId);
             if (user == null) return NotFound("User not found.");
 
-            // user.ProfilePicturePath = imageUrl;
-            // await _db.SaveChangesAsync();
+            user.ProfilePicturePath = model.ProfilePicturePath;
+            await _db.SaveChangesAsync();
 
-            return Ok(user);
+            return Ok(new { message = "Profile picture updated successfully." });
         }
 
-        // PUT /api/userProfile/updateBio
-        // Update user bio
+
+        // PUT /api/userProfile/{emailId}/updateBio
         [HttpPut("{emailId}/updateBio")]
-        public async Task<IActionResult> UpdateBio(string emailId, string bio)
+        public async Task<IActionResult> UpdateBio(string emailId, [FromBody] BioUpdateModel model)
         {
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == emailId);
             if (user == null) return NotFound("User not found.");
 
-            user.Bio = bio;
+            user.Bio = model.Bio;
             await _db.SaveChangesAsync();
 
             return Ok(new { message = "Bio updated successfully." });
@@ -54,17 +50,20 @@ namespace PlayPals.Controllers
         [HttpGet("{emailId}")]
         public async Task<IActionResult> GetUserProfile(string emailId)
         {
-            var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == emailId);
+            var user = await _db.Users
+                .Include(u => u.Genres)
+                .Include(u => u.Platforms)
+                .FirstOrDefaultAsync(u => u.Email == emailId);
             if (user == null) return NotFound("User not found.");
 
-            var response = new UserProfileDto
+            return Ok(new UserProfileDto
             {
                 Email = user.Email,
+                Bio = user.Bio,
                 ProfilePicturePath = user.ProfilePicturePath,
-                Bio = user.Bio
-            };
-
-            return Ok(response);
+                Genres = user.Genres?.Select(g => g.Name).ToList(),
+                Platforms = user.Platforms?.Select(p => p.Name).ToList()
+            });
         }
     }
 }

@@ -176,6 +176,20 @@
             border-radius: 50%;
             margin: 0 5px;
         }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 1000;
+            text-decoration: none;
+        }
     </style>
 
 </head>
@@ -184,6 +198,7 @@
 
 
     <div class="profile-container">
+        <a href="../EliasHtml/Home.html" class="back-button">Back to Home</a> 
         <a href="#" id="editLink" class="edit" style="color: white;">Edit</a>
         <div class="stats">
             <div>5 Posts</div>
@@ -191,28 +206,16 @@
         </div>
         <div class="profile-header">Your Profile</div>
         <div class="profile-photo">
-            <img src="https://via.placeholder.com/100" alt="Profile Photo" id="profilePicture">
-            <!-- Add an ID to the profile picture -->
+            <img src="" alt="Profile Photo" id="profilePicture">
         </div>
         <div class="profile-info">
-            <div class="profile-name">Jason Zhu, 25</div>
-            <div class="profile-bio" id="profileBio"></div> <!-- Add an ID to the profile bio -->
-            <h2>Games I play</h2>
+            <div id="email">Email: </div> 
+            <div class="profile-bio" id="profileBio"></div> 
+            <div id="genres">Genres: </div> 
+            <div id="platforms">Platforms: </div> 
             <div class="games-grid">
-                <div class="game-icon"></div>
-                <div class="game-icon"></div>
-                <div class="game-icon"></div>
-                <div class="game-icon"></div>
             </div>
         </div>
-        <div class="bottom-bar">
-            <div class="menu-dots-container">
-                <div class="menu-dot"></div>
-                <div class="menu-dot"></div>
-                <div class="menu-dot"></div>
-            </div>
-        </div>
-        <div class="online-indicator"></div>
     </div>
 
 

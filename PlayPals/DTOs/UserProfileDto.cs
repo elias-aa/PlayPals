@@ -10,5 +10,7 @@ namespace PlayPals.DTOs
         public string Email { get; set; }
         public string? ProfilePicturePath { get; set; }
         public string? Bio { get; set; }
+        public List<string>? Genres { get; set; }
+        public List<string>? Platforms { get; set; }
     }
 }
