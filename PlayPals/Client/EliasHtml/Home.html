@@ -15,6 +15,7 @@
                 align-items: center;
                 background: #1a1a1a;
                 position: relative;
+                margin-bottom: 150px;
             }
     
             h1 {
@@ -168,12 +169,8 @@
                 height: 60%;
                 width: 80%;
                 background-color: transparent;
-                padding: 20px;
                 border-radius: 15px;
-                margin-top: 20px;
                 position: relative;
-                /* flex-wrap: wrap; */
-                /* justify-content: space-evenly; */
             }
     
             .post {
@@ -184,12 +181,34 @@
                 margin-bottom: 5px;
             }
     
-            .post h2 {
-                margin-bottom: 5px;
-            }
-    
             .post small {
                 color: #888;
+            }
+
+            .postButton {
+                padding: 15px;
+                background-color: #0FC70F;
+                color: white;
+                font-size: 1.2em;
+                border-radius: 50px;
+                border: none;
+                margin-top: 10px;
+            }
+
+            .postButton:hover {
+                background-color: rgb(28, 112, 28);
+                cursor: pointer;
+            }
+
+            input {
+                width: 500px;
+                padding: 10px;
+                border: 2px solid #0FC70F;
+                border-radius: 50px;
+                margin-bottom: 10px;
+                color: white;
+                background: none;
+                font-size: 1.2em;
             }
         </style>
         <title>Home</title>
@@ -209,8 +228,8 @@
         </div>
 
         <form id="postForm" action="" method="post">
-            <input type="text" id="textInput" name="textInput" placeholder="Enter your post content" required>
-            <button type="submit">Submit</button>
+            <input type="text" id="textInput" name="textInput" placeholder="Enter your post content..." required>
+            <button class="postButton" type="submit">Submit</button>
         </form>
 
         <div class="overlay" id="aboutOverlay">
@@ -226,13 +245,18 @@
         <div class="content-frame" id="postContainer"></div>
 
         <nav>
-            <a href="../Profile.html">Profile</a>
-            <a href="../Matchmaking.html">Match!</a>
-            <a href="#">Button 3</a>
-            <a href="#">Button 4</a>
+            <a href="../FernandaHtml/Profile.html">Profile</a>
+            <a href="../AymanHtml/FindFriends.html">Find Friends</a>
+            <a href="#">Friend List</a>
         </nav>
 
         <script>
+            function toggleAboutScreen() {
+                console.log("Toggle about screen called");
+                var overlay = document.getElementById("aboutOverlay");
+                overlay.style.display = (overlay.style.display === "none" || overlay.style.display === "") ? "flex" : "none";
+            }
+
             fetch("http://localhost:5054/api/Users", {
                 method: "GET",
                 headers: {
@@ -321,6 +345,8 @@
                     .then(data => {
                         // Handle the response, e.g., update the UI with the new post
                         console.log(data);
+
+                        location.reload();
                     })
                     .catch(error => console.error("Error adding post:", error));
                 });
