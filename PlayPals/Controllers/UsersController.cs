@@ -14,6 +14,7 @@ using PlayPals.Models;
 using PlayPals.Services;
 using Microsoft.Extensions.Configuration;
 
+// Done by Elias Alissandratos
 namespace PlayPals.Controllers
 {
     [ApiController]
