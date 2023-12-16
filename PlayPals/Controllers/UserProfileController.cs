@@ -23,83 +23,48 @@ namespace PlayPals.Controllers
             _db = db;
         }
 
-        [HttpPost("uploadProfilePicture")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> UploadProfilePicture(IFormFile file)
+        // PUT /api/userProfile/uploadProfilePicture
+        [HttpPut("{emailId}/uploadProfilePicture")]
+        public async Task<IActionResult> AddImageToUser(string emailId, [FromBody]string imageUrl)
         {
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
-            if (userIdClaim == null) return Unauthorized();
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == emailId);
+            if (user == null) return NotFound("User not found.");
 
-            var userId = Guid.Parse(userIdClaim.Value);
-            var userProfile = await _db.UserProfiles.FindAsync(userId);
+            // user.ProfilePicturePath = imageUrl;
+            // await _db.SaveChangesAsync();
 
-            if (file == null || file.Length == 0)
-                return BadRequest("No file uploaded.");
-
-            if (file.Length > 10 * 1024 * 1024) // 10 MB limit
-                return BadRequest("File size exceeds limit.");
-
-            var uploadsDirectory = Path.Combine("uploads", "profile_pictures");
-            if (!Directory.Exists(uploadsDirectory))
-                Directory.CreateDirectory(uploadsDirectory);
-
-            var fileName = $"{userId}_{DateTime.UtcNow:yyyyMMddHHmmss}{Path.GetExtension(file.FileName)}";
-            var filePath = Path.Combine(uploadsDirectory, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-
-            if (userProfile == null)
-            {
-                userProfile = new UserProfile
-                {
-                    UserId = userId,
-                    ProfilePicturePath = filePath
-                };
-                _db.UserProfiles.Add(userProfile);
-            }
-            else
-            {
-                userProfile.ProfilePicturePath = filePath;
-                _db.UserProfiles.Update(userProfile);
-            }
-
-            await _db.SaveChangesAsync();
-            return Ok(new { message = "Profile picture updated successfully." });
+            return Ok(user);
         }
 
-        [HttpGet("profile")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult<UserProfile>> GetProfile()
+        // PUT /api/userProfile/updateBio
+        // Update user bio
+        [HttpPut("{emailId}/updateBio")]
+        public async Task<IActionResult> UpdateBio(string emailId, string bio)
         {
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
-            if (userIdClaim == null) return Unauthorized();
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == emailId);
+            if (user == null) return NotFound("User not found.");
 
-            var userId = Guid.Parse(userIdClaim.Value);
-            var userProfile = await _db.UserProfiles.FindAsync(userId);
-            if (userProfile == null) return NotFound("User profile not found.");
-
-            return Ok(userProfile);
-        }
-
-        [HttpPost("updateBio")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> UpdateBio([FromBody] UpdateBioDto bioDto)
-        {
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type is ClaimTypes.NameIdentifier);
-            if (userIdClaim == null) return Unauthorized();
-
-            var userId = Guid.Parse(userIdClaim.Value);
-            var userProfile = await _db.UserProfiles.FindAsync(userId);
-            if (userProfile == null) return NotFound("User profile not found.");
-
-            userProfile.Bio = bioDto.NewBio;
-            _db.UserProfiles.Update(userProfile);
+            user.Bio = bio;
             await _db.SaveChangesAsync();
 
             return Ok(new { message = "Bio updated successfully." });
+        }
+
+        // GET /api/userProfile/{emailId}
+        [HttpGet("{emailId}")]
+        public async Task<IActionResult> GetUserProfile(string emailId)
+        {
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == emailId);
+            if (user == null) return NotFound("User not found.");
+
+            var response = new UserProfileDto
+            {
+                Email = user.Email,
+                ProfilePicturePath = user.ProfilePicturePath,
+                Bio = user.Bio
+            };
+
+            return Ok(response);
         }
     }
 }

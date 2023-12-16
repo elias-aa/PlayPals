@@ -75,7 +75,33 @@ namespace PlayPals.Controllers
             return Ok(friends);
         }
 
-        // GET: /api/Fi/{email}
-        // [HttpGet("{email}")]
+        // POST: /api/FindFriends/{email}/addFriend
+        [HttpPost("{email}/addFriend")]
+        // Add friend to user's friend list
+        public async Task<IActionResult> AddFriend(string email, string emailToAdd)
+        {
+            var user = await _db.Users.Include(u => u.Friends).FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var friend = await _db.Users.FirstOrDefaultAsync(u => u.Email == emailToAdd);
+            if (friend == null)
+            {
+                return NotFound();
+            }
+
+            var friendToAdd = new Friend
+            {
+                FriendId = friend.UserId,
+                User = friend
+            };
+
+            user.Friends.Add(friendToAdd);
+            await _db.SaveChangesAsync();
+
+            return Ok(new { message = "Friend added successfully." });
+        }
     }
 }

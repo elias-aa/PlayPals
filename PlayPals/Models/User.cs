@@ -15,10 +15,12 @@ namespace PlayPals.Models
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-
+        public string? ProfilePicturePath { get; set; }
+        public string? Bio { get; set; }
         public List<Post>? Posts { get; set; }
         public List<Genre>? Genres { get; set; }
         public List<Platform>? Platforms { get; set; }
+        public List<Friend>? Friends { get; set; }
 
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
