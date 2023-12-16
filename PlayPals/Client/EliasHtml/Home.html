@@ -248,6 +248,7 @@
             <a href="../FernandaHtml/Profile.html">Profile</a>
             <a href="../AymanHtml/FindFriends.html">Find Friends</a>
             <a href="#">Friend List</a>
+            <a id="logoutButton" href="#">Log Out</a>
         </nav>
 
         <script>
@@ -293,30 +294,24 @@
                     buttonC.classList.remove("selected");
                 }
     
-                // Fetch posts and update the content-frame
                 fetch("http://localhost:5054/api/posts?page=1")
                     .then(response => response.json())
                     .then(data => {
                         const postContainer = document.getElementById("postContainer");
                         console.log(data);
-    
-                        // Clear existing content
+
                         postContainer.innerHTML = "";
     
-                        // Loop through each post in the data array
                         data.data.forEach(post => {
-                            // Create post element
                             const postElement = document.createElement("div");
                             postElement.classList.add("post");
     
-                            // Populate post content
                             postElement.innerHTML = `
                                 <h2>${post.userName}</h2>
                                 <p>${post.content}</p>
                                 <small>${new Date(post.postingDate).toLocaleString()}</small>
                             `;
     
-                            // Append post element to the content-frame
                             postContainer.appendChild(postElement);
                         });
                     })
@@ -325,13 +320,12 @@
                 const postForm = document.getElementById("postForm");
     
                 postForm.addEventListener("submit", function (event) {
-                    event.preventDefault(); // Prevent the default form submission
+                    event.preventDefault();
     
                     const formData = new FormData(postForm);
                     const postContent = formData.get("textInput");
                     const userEmail = localStorage.getItem('userEmail');
                     
-                    // Use fetch to send a POST request to your server
                     fetch(`http://localhost:5054/api/users/${userEmail}/post`, {
                         method: "POST",
                         headers: {
@@ -343,12 +337,16 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        // Handle the response, e.g., update the UI with the new post
                         console.log(data);
-
                         location.reload();
                     })
                     .catch(error => console.error("Error adding post:", error));
+                });
+
+                const logoutButton = document.getElementById("logoutButton");
+                logoutButton.addEventListener("click", function () {
+                    localStorage.removeItem('userEmail');
+                    window.location.href = "Index.html";
                 });
             });
         </script>
